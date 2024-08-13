@@ -1,0 +1,17 @@
+###
+GET http://localhost:5000/user
+
+###
+
+GET http://localhost:5000/user/66bb6fd09ffb2137cbf3e7dd
+
+###
+
+POST http://localhost:5000/user
+Content-Type: application/json
+
+{
+    "username": "abt",
+    "password": "19",
+    "email": "a@bt.com"
+}

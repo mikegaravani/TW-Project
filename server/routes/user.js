@@ -1,11 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/user');
-// const UserController = require('../controllers/userController');
 
 // Routes for user authentication and management
 // User registration
-router.post('/', async (req, res) => {
+router.post('/register', async (req, res) => {
     const newUser = new User({
         username: req.body.username,
         password: req.body.password,
@@ -20,16 +19,16 @@ router.post('/', async (req, res) => {
     }
 });
 // User login
-router.post('/', (req, res) => {
+router.post('/login', (req, res) => {
     
 });
 // User logout
-router.post('/', (req, res) => {
+router.post('/logout', (req, res) => {
     
 });
 // Fetch user profile
 router.get('/:id', getUser, (req, res) => {
-    res.send(res.user);
+    res.json(res.user);
 });
 // Fetch all users
 router.get('/', async (req, res) => {
@@ -41,12 +40,31 @@ router.get('/', async (req, res) => {
     }
 });
 // User profile update
-router.patch('/:id', getUser, (req, res) => {
-
+router.patch('/:id', getUser, async (req, res) => {
+    if (req.body.username != null) {
+        res.user.username = req.body.username;
+    }
+    if (req.body.password != null) {
+        res.user.password = req.body.password;
+    }
+    if (req.body.email != null) {
+        res.user.email = req.body.email;
+    }
+    try {
+        const updatedUser = await res.user.save();
+        res.json(updatedUser);
+    } catch (err) {
+        res.status(400).json({ message: err.message });
+    }
 });
 // User profile deletion
-router.delete('/:id', getUser, (req, res) => {
-    
+router.delete('/:id', getUser, async (req, res) => {
+    try {
+        await res.user.deleteOne();
+        res.json({ message: 'User deleted' });
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
 });
 
 

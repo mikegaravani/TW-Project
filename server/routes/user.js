@@ -34,6 +34,7 @@ router.get('/:id', getUser, (req, res) => {
 router.get('/', async (req, res) => {
     try {
         const users = await User.find();
+        console.log('All users fetched');
         res.json(users);
     } catch (err) {
         res.status(500).json({ message: err.message });

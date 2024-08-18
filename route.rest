@@ -12,13 +12,13 @@ DELETE http://localhost:5000/user/66bc69591c20e378209295af
 
 ###
 
-POST http://localhost:5000/user/register
+POST http://localhost:5000/user
 Content-Type: application/json
 
 {
-    "username": "abz",
-    "password": "21",
-    "email": "a@bz.com"
+    "username": "aaaa",
+    "password": "123",
+    "email": "aa@aa.com"
 }
 
 ###

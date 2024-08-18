@@ -4,7 +4,7 @@ const User = require('../models/user');
 
 // Routes for user authentication and management
 // User registration
-router.post('/register', async (req, res) => {
+router.post('/', async (req, res) => {
     const newUser = new User({
         username: req.body.username,
         password: req.body.password,
@@ -18,18 +18,30 @@ router.post('/register', async (req, res) => {
         res.status(400).json({ message: err.message });
     }
 });
+
+
+
 // User login
 router.post('/login', (req, res) => {
     
 });
+
+
+
 // User logout
 router.post('/logout', (req, res) => {
     
 });
+
+
+
 // Fetch user profile
 router.get('/:id', getUser, (req, res) => {
     res.json(res.user);
 });
+
+
+
 // Fetch all users
 router.get('/', async (req, res) => {
     try {
@@ -40,6 +52,9 @@ router.get('/', async (req, res) => {
         res.status(500).json({ message: err.message });
     }
 });
+
+
+
 // User profile update
 router.patch('/:id', getUser, async (req, res) => {
     if (req.body.username != null) {
@@ -58,6 +73,9 @@ router.patch('/:id', getUser, async (req, res) => {
         res.status(400).json({ message: err.message });
     }
 });
+
+
+
 // User profile deletion
 router.delete('/:id', getUser, async (req, res) => {
     try {

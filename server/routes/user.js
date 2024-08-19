@@ -5,13 +5,31 @@ const User = require('../models/user');
 // Routes for user authentication and management
 // User registration
 router.post('/', async (req, res) => {
-    const newUser = new User({
-        username: req.body.username,
-        password: req.body.password,
-        email: req.body.email
-    });
+    const { username, password, email } = req.body;
+
+    if (!username || !password || !email) {
+        return res.status(400).json({ message: 'Username, password, and email are required.' });
+    }
 
     try {
+        // Username in use
+        const existingUsername = await User.findOne({ username });
+        if (existingUsername) {
+            return res.status(409).json({ message: 'Username is already in use.' });
+        }
+
+        // Email in use
+        const existingEmail = await User.findOne({ email });
+        if (existingEmail) {
+            return res.status(409).json({ message: 'Email is already in use.' });
+        }
+
+        const newUser = new User({
+            username,
+            password,
+            email
+        });
+
         const savedUser = await newUser.save();
         res.status(201).json(savedUser);
     } catch (err) {
@@ -22,8 +40,26 @@ router.post('/', async (req, res) => {
 
 
 // User login
-router.post('/login', (req, res) => {
-    
+router.post('/login', async (req, res) => {
+    const { username, password } = req.body;
+    if (!username || !password) {
+        return res.status(400).json({ message: 'Username and password are required' });
+    }
+    try {
+        const user = await User.findOne({ username });
+        if (!user) {
+            return res.status(400).json({ message: 'Invalid username or password' });
+        }
+
+        if (password !== user.password) {
+            return res.status(400).json({ message: 'Invalid username or password' });
+        }
+
+        res.status(200).json({ message: 'Login successful', userId: user._id });
+
+    } catch (err) {
+        res.status(500).json({ message: 'Server error', error: err.message });
+    }
 });
 
 

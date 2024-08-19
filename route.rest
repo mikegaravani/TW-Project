@@ -1,4 +1,5 @@
 ###
+// Get user list
 GET http://localhost:5000/user
 
 ###
@@ -16,10 +17,23 @@ POST http://localhost:5000/user
 Content-Type: application/json
 
 {
-    "username": "aaaa",
-    "password": "123",
-    "email": "aa@aa.com"
+    "username": "bojour",
+    "password": "",
+    "email": "nshshshhhshhsha@aa.com"
 }
+
+###
+
+POST http://localhost:5000/user/login
+Content-Type: application/json
+
+{
+    "username": "abs",
+    "password": "12"
+}
+
+
+
 
 ###
 

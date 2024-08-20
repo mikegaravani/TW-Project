@@ -11,6 +11,11 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/user/, '/user'), // Optional: rewrite the path if needed
       },
+      '/events': {
+        target: 'http://localhost:5000', // Your backend server URL
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/events/, '/events'), // Optional: rewrite the path if needed
+      },
     },
   },
 });

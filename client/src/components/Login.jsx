@@ -20,9 +20,18 @@ function Login() {
 
         try {
             const response = await axios.post('/user/login', userData);
-            console.log('User logged in successfully!');
+            const token = response.data.token;
 
-            navigate('/');
+            if (token) {
+                localStorage.setItem('token', token);
+                console.log('User logged in successfully, and token retrieved!');
+
+                navigate('/');
+            }
+            else {
+                setError('Failed to log in (no token retrieved)');
+            }
+
             
         } catch (err) {
             if (err.response) {

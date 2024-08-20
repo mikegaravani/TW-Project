@@ -17,9 +17,9 @@ POST http://localhost:5000/user
 Content-Type: application/json
 
 {
-    "username": "bby",
+    "username": "peg",
     "password": "12",
-    "email": "bby@nah.com"
+    "email": "pegyz@nah.com"
 }
 
 ###
@@ -28,7 +28,7 @@ POST http://localhost:5000/user/login
 Content-Type: application/json
 
 {
-    "username": "abs",
+    "username": "peg",
     "password": "12"
 }
 
@@ -47,4 +47,9 @@ Content-Type: application/json
 ###
 
 GET http://localhost:5000/events
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YmI2ZmQwOWZmYjIxMzdjYmYzZTdkZCIsImlhdCI6MTcyNDE2MjU4N30.rJK-2Mhz9RcAEegt8wSa4E5hhMB4M0ZcNlPq693c2WU
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzRhMWM1ZDU1YzMyYjg0YzY2NTQ3NiIsImlhdCI6MTcyNDE4OTczMX0.T7aZ6BV2hcrdYlGbuATB9pwpBnBHIGUQfeQdiNDPPE0
+
+###
+
+GET http://localhost:5000/events/home
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzUxN2ZmNzFkNGVlM2M0OWY0MDg5MSIsImlhdCI6MTcyNDE5MjgyMn0.qfaFS0Mxf8Q2HayLRVhTj3U2eVMHpV05WkWkXGkgo-Y

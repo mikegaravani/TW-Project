@@ -34,7 +34,10 @@ router.post('/', async (req, res) => {
         });
 
         const savedUser = await newUser.save();
-        res.status(201).json(savedUser);
+
+        // Assign token
+        const token = jwt.sign({ id: savedUser._id }, process.env.JWT_SECRET)
+        res.status(201).json({ message: 'Signup successful', token,  userId: savedUser._id });
     } catch (err) {
         res.status(400).json({ message: err.message });
     }
@@ -160,6 +163,8 @@ async function getUser(req, res, next) {
     res.user = aUser;
     next();
 }
+
+
 
 
 module.exports = router;

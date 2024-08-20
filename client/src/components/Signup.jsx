@@ -27,9 +27,17 @@ function Signup() {
 
         try {
             const response = await axios.post('/user', userData);
-            console.log('User created successfully!');
+            const token = response.data.token;
 
-            navigate('/');
+            if (token) {
+                localStorage.setItem('token', token);
+                console.log('User CREATED successfully, and token retrieved!');
+
+                navigate('/');
+            }
+            else {
+                setError('Failed to log in (no token retrieved)');
+            }
             
         } catch (err) {
             if (err.response) {

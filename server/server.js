@@ -2,6 +2,7 @@ require('dotenv').config();
 
 const express = require('express');
 const mongoose = require('mongoose');
+const jwt = require('jsonwebtoken');
 
 const app = express();
 
@@ -21,6 +22,8 @@ app.use(express.json());
 
 const userRouter = require('./routes/user');
 app.use('/user', userRouter);
+const eventRouter = require('./routes/events');
+app.use('/events', eventRouter);
 
 
 const PORT = process.env.PORT || 5000;

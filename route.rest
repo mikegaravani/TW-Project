@@ -4,7 +4,7 @@ GET http://localhost:5000/user
 
 ###
 
-GET http://localhost:5000/user/66bc69591c20e378209295af
+GET http://localhost:5000/user/66c4a1c5d55c32b84c665476
 
 ###
 
@@ -17,9 +17,9 @@ POST http://localhost:5000/user
 Content-Type: application/json
 
 {
-    "username": "bojour",
-    "password": "",
-    "email": "nshshshhhshhsha@aa.com"
+    "username": "bby",
+    "password": "12",
+    "email": "bby@nah.com"
 }
 
 ###
@@ -43,3 +43,8 @@ Content-Type: application/json
 {
     "username": "abl"
 }
+
+###
+
+GET http://localhost:5000/events
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YmI2ZmQwOWZmYjIxMzdjYmYzZTdkZCIsImlhdCI6MTcyNDE2MjU4N30.rJK-2Mhz9RcAEegt8wSa4E5hhMB4M0ZcNlPq693c2WU

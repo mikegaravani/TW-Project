@@ -1,9 +1,12 @@
 const express = require('express');
+const jwt = require('jsonwebtoken');
 const router = express.Router();
 const User = require('../models/user');
+require('dotenv').config();
 
 // Routes for user authentication and management
-// User registration
+
+// User signup
 router.post('/', async (req, res) => {
     const { username, password, email } = req.body;
 
@@ -55,12 +58,17 @@ router.post('/login', async (req, res) => {
             return res.status(400).json({ message: 'Invalid username or password' });
         }
 
-        res.status(200).json({ message: 'Login successful', userId: user._id });
+
+        // Assign token
+        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
+        return res.status(200).json({ message: 'Login successful', token, userId: user._id });
 
     } catch (err) {
         res.status(500).json({ message: 'Server error', error: err.message });
     }
 });
+
+
 
 
 
@@ -124,6 +132,20 @@ router.delete('/:id', getUser, async (req, res) => {
 
 
 
+
+
+
+
+
+
+// Various middleware functions
+
+
+
+
+
+
+// Fetch user by ID
 async function getUser(req, res, next) {
     let aUser;
     try {

@@ -13,7 +13,7 @@ function HomePage() {
       <div>hdhdhdhhdhdhdhdhhdhd you in</div>
       { error && <Alert variant='danger'>{ error }</Alert> }
       <h2 className='text-center mb-4'>Profile</h2>
-      <Button variant='link' onClick={handleLogout}>Log out</Button>
+      {/* <Button variant='link' onClick={handleLogout}>Log out</Button> */}
 
 
 

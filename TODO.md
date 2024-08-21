@@ -10,6 +10,12 @@
 
 - Fix vite.config.js so I dont have to update it everytime I add a new route
 
+- Frontend: spinner's own class?
+
+- BIG ISSUE: some frontend urls point to backend json!!!!!!!!!!!!!!!!!
+
+- Frontend: components/note-components/note-style.css has ugly ahh non-working external links!!
+
 ## Next in line TODO
 
-- Start working on notes: first direct user to the notes page in the frontend, then work on them separately (backend: new route/model file, connect the note schema to the user/event schema, frontend add functionality, learn markup rules, find possible npm dependencies for note view, etc)
+- Start working on notes: (first direct user to the notes page in the frontend) -> ill do it l8r, then work on them separately (backend: add routes, frontend add functionality, learn markup rules, find possible npm dependencies for note view, etc)

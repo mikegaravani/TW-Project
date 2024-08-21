@@ -7,14 +7,19 @@ export default defineConfig({
   server: {
     proxy: {
       '/user': {
-        target: 'http://localhost:5000', // Your backend server URL
+        target: 'http://localhost:5000',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/user/, '/user'), // Optional: rewrite the path if needed
+        rewrite: (path) => path.replace(/^\/user/, '/user'),
       },
       '/events': {
-        target: 'http://localhost:5000', // Your backend server URL
+        target: 'http://localhost:5000',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/events/, '/events'), // Optional: rewrite the path if needed
+        rewrite: (path) => path.replace(/^\/events/, '/events'),
+      },
+      '/notes': {
+        target: 'http://localhost:5000',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/notes/, '/notes'),
       },
     },
   },

@@ -28,7 +28,7 @@ POST http://localhost:5000/user/login
 Content-Type: application/json
 
 {
-    "username": "peg",
+    "username": "abs",
     "password": "12"
 }
 
@@ -47,9 +47,20 @@ Content-Type: application/json
 ###
 
 GET http://localhost:5000/events
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzRhMWM1ZDU1YzMyYjg0YzY2NTQ3NiIsImlhdCI6MTcyNDE4OTczMX0.T7aZ6BV2hcrdYlGbuATB9pwpBnBHIGUQfeQdiNDPPE0
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YmI2ZmQwOWZmYjIxMzdjYmYzZTdkZCIsImlhdCI6MTcyNDIzNzQ0Nn0.eAEgW_VdncS6XRbq3U1Z1Ncps9itu8NjRc13Rw3MeWs
 
 ###
 
 GET http://localhost:5000/events/home
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzUxN2ZmNzFkNGVlM2M0OWY0MDg5MSIsImlhdCI6MTcyNDE5MjgyMn0.qfaFS0Mxf8Q2HayLRVhTj3U2eVMHpV05WkWkXGkgo-Y
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YmI2ZmQwOWZmYjIxMzdjYmYzZTdkZCIsImlhdCI6MTcyNDIzNzQ0Nn0.eAEgW_VdncS6XRbq3U1Z1Ncps9itu8NjRc13Rw3MeWs
+
+###
+
+POST http://localhost:5000/notes/new
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YmI2ZmQwOWZmYjIxMzdjYmYzZTdkZCIsImlhdCI6MTcyNDIzNzQ0Nn0.eAEgW_VdncS6XRbq3U1Z1Ncps9itu8NjRc13Rw3MeWs
+Content-Type: application/json
+
+{
+    "title": "Abs brakes note",
+    "content": "This is a note about abs brakes"
+}

@@ -24,6 +24,8 @@ const userRouter = require('./routes/user');
 app.use('/user', userRouter);
 const eventRouter = require('./routes/events');
 app.use('/events', eventRouter);
+const noteRouter = require('./routes/notes');
+app.use('/notes', noteRouter);
 
 
 const PORT = process.env.PORT || 5000;

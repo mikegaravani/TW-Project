@@ -1,0 +1,63 @@
+###
+// Get a list of all users
+GET http://localhost:5000/user
+
+###
+
+// Get user by id
+GET http://localhost:5000/user/66c7690392653d2fcaf50dac
+
+###
+
+// Delete user by id
+DELETE http://localhost:5000/user/66c3458b546645f0d9043506
+
+###
+
+// Create a new user
+POST http://localhost:5000/user
+Content-Type: application/json
+
+{
+    "username": "ee",
+    "password": "12",
+    "email": "e@e.com"
+}
+
+###
+
+// Login
+POST http://localhost:5000/user/login
+Content-Type: application/json
+
+{
+    "username": "ef",
+    "password": "ef"
+}
+
+
+
+
+###
+
+// Update user by id
+PATCH http://localhost:5000/user/66c76735d261bf662b110c1d
+Content-Type: application/json
+
+{
+    "password": "ef"
+}
+
+###
+
+// Get user events
+GET http://localhost:5000/events
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2Yzc2NzM1ZDI2MWJmNjYyYjExMGMxZCIsImlhdCI6MTcyNDM0NDI0OH0.GisOaxci_bIVT1tQqArwwFsj7Sk7VHDkQnQ2kcsbPGs
+
+###
+
+// Get user id (to try if token authentification works)
+GET http://localhost:5000/events/home
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2Yzc2NzM1ZDI2MWJmNjYyYjExMGMxZCIsImlhdCI6MTcyNDM0NDI0OH0.GisOaxci_bIVT1tQqArwwFsj7Sk7VHDkQnQ2kcsbPGs
+
+###

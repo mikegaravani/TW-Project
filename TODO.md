@@ -16,6 +16,8 @@
 
 - Frontend: components/note-components/note-style.css has ugly ahh non-working external links!!
 
+- Update API routes: privacy issues?? (For example... Can a user update a note thats not his if they have its _id??, etc...)
+
 ## Next in line TODO
 
 - Start working on notes: (first direct user to the notes page in the frontend) -> ill do it l8r, then work on them separately (backend: add routes, frontend add functionality, learn markup rules, find possible npm dependencies for note view, etc)

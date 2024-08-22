@@ -1,0 +1,33 @@
+###
+// Add a new user note
+POST http://localhost:5000/notes/new
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2Yzc2NzM1ZDI2MWJmNjYyYjExMGMxZCIsImlhdCI6MTcyNDM0NDI0OH0.GisOaxci_bIVT1tQqArwwFsj7Sk7VHDkQnQ2kcsbPGs
+Content-Type: application/json
+
+{
+    "title": "megapenis",
+    "content": "penis"
+}
+
+###
+
+// Get all user notes
+GET http://localhost:5000/notes/all
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2Yzc2NzM1ZDI2MWJmNjYyYjExMGMxZCIsImlhdCI6MTcyNDM0NDI0OH0.GisOaxci_bIVT1tQqArwwFsj7Sk7VHDkQnQ2kcsbPGs
+
+###
+
+// Delete a user note
+DELETE http://localhost:5000/notes/delete/66c76ec0e4267aa190c15e14
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2Yzc2NzM1ZDI2MWJmNjYyYjExMGMxZCIsImlhdCI6MTcyNDM0NDI0OH0.GisOaxci_bIVT1tQqArwwFsj7Sk7VHDkQnQ2kcsbPGs
+
+###
+
+// Update a user note
+PUT http://localhost:5000/notes/update/66c7692792653d2fcaf50db2
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2Yzc2NzM1ZDI2MWJmNjYyYjExMGMxZCIsImlhdCI6MTcyNDM0NDI0OH0.GisOaxci_bIVT1tQqArwwFsj7Sk7VHDkQnQ2kcsbPGs
+Content-Type: application/json
+
+{
+    "title": "hypercoolnote"
+}

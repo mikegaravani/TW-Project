@@ -14,7 +14,7 @@ body,
   height: 100vh;
   overflow: hidden;
   font-size: 16px;
-  background: white;
+  background: #FFFFF0;
 }
 
 button {

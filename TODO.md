@@ -20,4 +20,4 @@
 
 ## Next in line TODO
 
-- Start working on notes: (first direct user to the notes page in the frontend) -> ill do it l8r, then work on them separately (backend: add routes, frontend add functionality, learn markup rules, find possible npm dependencies for note view, etc)
+- NOTES: MAKE ALL THE FRONTEND WORK!!!!

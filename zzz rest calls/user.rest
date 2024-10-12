@@ -5,7 +5,7 @@ GET http://localhost:5000/user
 ###
 
 // Get user by id
-GET http://localhost:5000/user/66c7690392653d2fcaf50dac
+GET http://localhost:5000/user/66c34896e165df7cecb41910
 
 ###
 
@@ -19,9 +19,9 @@ POST http://localhost:5000/user
 Content-Type: application/json
 
 {
-    "username": "ee",
-    "password": "12",
-    "email": "e@e.com"
+    "username": "goo",
+    "password": "gle",
+    "email": "gmail@e.com"
 }
 
 ###
@@ -32,7 +32,7 @@ Content-Type: application/json
 
 {
     "username": "ef",
-    "password": "ef"
+    "password": "efj"
 }
 
 
@@ -58,6 +58,6 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2Yzc2NzM1ZDI2MWJm
 
 // Get user id (to try if token authentification works)
 GET http://localhost:5000/events/home
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2Yzc2NzM1ZDI2MWJmNjYyYjExMGMxZCIsImlhdCI6MTcyNDM0NDI0OH0.GisOaxci_bIVT1tQqArwwFsj7Sk7VHDkQnQ2kcsbPGs
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MDAwYzYzOTBkOTM2OWVhYjM1NjQ0ZiIsImlhdCI6MTcyODA1NjQxOX0.zLqMIe09Uuz1OXvceBTZxeMxlCKpfi2tUbHGwIimT_A
 
 ###

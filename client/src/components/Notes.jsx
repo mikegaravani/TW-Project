@@ -1,59 +1,70 @@
-import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom';
-import Sidebar from './note-components/Sidebar';
-import Notepad from './note-components/Notepad';
-import { Card, Button, Alert, Spinner } from 'react-bootstrap'
-import './note-components/note-style.css';
-import axios from 'axios';
+import { useEffect, useState } from "react";
+import uuid from "react-uuid";
+import "./note-components/note-style.css";
+import Sidebar from "./note-components/Sidebar";
+import NoteView from "./note-components/NoteView";
 
 function Notes() {
+  // Array of notes
+  // const [notes, setNotes] = useState([]);
+  const [notes, setNotes] = useState(
+    JSON.parse(localStorage.getItem("notes-data")) || []
+  );
 
-    // const [notes, setNotes] = useState([]);
-    // const [error, setError] = useState('');
-    // const [loading, setLoading] = useState(true);
-    // const navigate = useNavigate();
+  const [activeNote, setActiveNote] = useState(false);
 
-    // useEffect(() => {
+  useEffect(() => {
+    localStorage.setItem("notes-data", JSON.stringify(notes));
+  }, [notes]);
 
-    //     const token = localStorage.getItem('token');
-    //     if (!token) {
-    //         navigate('/login');
-    //         return;
-    //     }
-    //     axios.get('/notes/all', {
-    //         headers: {
-    //             'Authorization': token
-    //         }
-    //     })
-    //     .then(response => {
-    //       setNotes(response.data);
-    //       setLoading(false);
-    //     })
-    //     .catch(error => {
-    //         setError('An unexpected error occurred. Please try again later.');
-    //         setLoading(false);
-    //     });
+  // Add a note
+  const onAddNote = () => {
+    // Note object
+    const newNote = {
+      id: uuid(),
+      title: "Untitled Note",
+      body: "",
+      lastModified: Date.now(),
+    };
 
-    // }, [navigate]);
+    setNotes([newNote, ...notes]);
+    setActiveNote(newNote.id);
+  };
 
-    const onAddNote = () => {
-        console.log('Adding a note');
-        const newNote = {
-            // TODO GET KEYS FROM BACKEND
-            id: id,// TODO GET ID FROM BACKEND
-            title: 'Untitled Note',
-            body: '',
-            lastModified: Date.now(),
-        }
-    }
+  const onUpdateNote = (updatedNote) => {
+    const updatedNotesArray = notes.map((note) => {
+      if (note.id === activeNote) {
+        return updatedNote;
+      }
 
-    return (
+      return note;
+    });
 
-    <div className='App'>
-        <Sidebar notes={notes} onAddNote={onAddNote} />
-        <Notepad />
-    </div> 
-    )
+    setNotes(updatedNotesArray);
+  };
+
+  const onDeleteNote = (idToDelete) => {
+    setNotes(notes.filter((note) => note.id !== idToDelete));
+  };
+
+  const getActiveNote = () => {
+    return notes.find((note) => note.id === activeNote);
+  };
+
+  return (
+    <>
+      <div className="App">
+        <Sidebar
+          notes={notes}
+          onAddNote={onAddNote}
+          onDeleteNote={onDeleteNote}
+          activeNote={activeNote}
+          setActiveNote={setActiveNote}
+        />
+        <NoteView activeNote={getActiveNote()} onUpdateNote={onUpdateNote} />
+      </div>
+    </>
+  );
 }
 
-export default Notes
+export default Notes;

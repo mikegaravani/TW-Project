@@ -14,7 +14,7 @@ body,
   height: 100vh;
   overflow: hidden;
   font-size: 16px;
-  background: #FFFFF0;
+  background: #fefce6;
 }
 
 button {
@@ -84,7 +84,7 @@ button:hover {
   color: white;
 }
 
-/* NOTEPAD STYLES */
+/* NOTE EDITOR/PREVIEW (MAIN) STYLES */
 
 .app-main {
   width: 70%;

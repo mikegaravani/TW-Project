@@ -1,29 +1,46 @@
-import React from 'react'
+import React from "react";
+import ReactMarkdown from "react-markdown";
 
-function NoteView() {
+function NoteView({ activeNote, onUpdateNote }) {
+  const onEditField = (key, value) => {
+    onUpdateNote({
+      ...activeNote,
+      [key]: value,
+      lastModified: Date.now(),
+    });
+  };
+
+  if (!activeNote) return <div className="no-active-note">Your notes!</div>;
+
   return (
     <>
-        <div className="app-main">
+      <div className="app-main">
+        <div className="app-main-note-edit">
+          <input
+            type="text"
+            id="title"
+            value={activeNote.title}
+            onChange={(e) => onEditField("title", e.target.value)}
+          />
 
-            <div className="app-main-note-edit">
-
-                <input type="text" id="title" autoFocus />
-                {/* TODO change autofocus to the note body rather than title? */}
-
-                <textarea id="body" placeholder="Write your note here..."></textarea>
-
-            </div>
-
-            <div className="app-main-note-preview">
-
-                <h1 className='preview-title'>Note Title</h1>
-                <div className='markdown-preview'>Note Body</div>
-
-            </div>
-
+          <textarea
+            id="body"
+            placeholder="Write your note here..."
+            value={activeNote.body}
+            onChange={(e) => onEditField("body", e.target.value)}
+            autoFocus
+          />
         </div>
+
+        <div className="app-main-note-preview">
+          <h1 className="preview-title">{activeNote.title}</h1>
+          <ReactMarkdown className="markdown-preview">
+            {activeNote.body}
+          </ReactMarkdown>
+        </div>
+      </div>
     </>
-  )
+  );
 }
 
-export default NoteView
+export default NoteView;

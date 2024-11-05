@@ -22,13 +22,23 @@ function Sidebar({
       <div className="app-sidebar-notes">
         {sortedNotes.map((note) => (
           <div
-            className={`app-sidebar-note ${note.id === activeNote && "active"}`}
-            onClick={() => setActiveNote(note.id)}
+            key={note._id}
+            className={`app-sidebar-note ${
+              note._id === activeNote ? "active" : ""
+            }`}
+            onClick={() => setActiveNote(note._id)}
           >
             <div className="sidebar-note-title">
               <strong>{note.title}</strong>
 
-              <button onClick={() => onDeleteNote(note.id)}>Delete</button>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onDeleteNote(note._id);
+                }}
+              >
+                Delete
+              </button>
             </div>
 
             <p>

@@ -5,12 +5,12 @@ GET http://localhost:5000/user
 ###
 
 // Get user by id
-GET http://localhost:5000/user/66c34896e165df7cecb41910
+GET http://localhost:5000/user/66c76735d261bf662b110c1d
 
 ###
 
 // Delete user by id
-DELETE http://localhost:5000/user/66c3458b546645f0d9043506
+DELETE http://localhost:5000/user/66bc79b3ad71f56dfec719ad
 
 ###
 

@@ -76,6 +76,7 @@ router.post("/login", async (req, res) => {
 });
 
 // User logout
+// TODO not needed?
 router.post("/logout", (req, res) => {});
 
 // Fetch user profile

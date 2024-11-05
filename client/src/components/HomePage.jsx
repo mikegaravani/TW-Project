@@ -12,6 +12,11 @@ function HomePage() {
   useEffect(() => {
     const token = localStorage.getItem("token");
 
+    if (!token) {
+      navigate("/login");
+      return;
+    }
+
     axios
       .get("/events/home", {
         headers: {
@@ -25,9 +30,12 @@ function HomePage() {
       .catch((error) => {
         if (
           error.response &&
-          (error.response.status === 401 || error.response.status === 403)
+          (error.response.status === 401 ||
+            error.response.status === 403 ||
+            // TODO handle 500 error better (possibly remove this)
+            error.response.status === 500)
         ) {
-          // Token is invalid or missing, redirect to login
+          localStorage.removeItem("token");
           navigate("/login");
         } else {
           console.error("Error fetching protected route:", error);
@@ -37,11 +45,18 @@ function HomePage() {
       });
   }, [navigate]);
 
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    console.log("User logged out");
+    navigate("/login");
+  };
+
   return (
     <>
       <div>
-        hdhdhdhhdhdhdhdhhdhd you in, this is protected content and requires a
-        token, right??
+        <button onClick={handleLogout}>LOGOUT</button>
+        <br />
+        <button onClick={() => navigate("/note-editor")}>Your Notes</button>
       </div>
 
       {error && <Alert variant="danger">{error}</Alert>}

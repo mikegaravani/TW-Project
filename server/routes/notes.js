@@ -7,7 +7,7 @@ require("dotenv").config();
 
 const authenticateToken = require("../middleware/authMiddleware");
 
-// authenticateToken middleware is applied to all routes in this file
+// authenticateToken middleware is applied to all routes in this file!!!!!!
 router.use(authenticateToken);
 
 // Add a new note

@@ -19,14 +19,14 @@ function NoteView({ activeNote, onUpdateNote }) {
           <input
             type="text"
             id="title"
-            value={activeNote.title}
+            value={activeNote.title || ""}
             onChange={(e) => onEditField("title", e.target.value)}
           />
 
           <textarea
             id="body"
             placeholder="Write your note here..."
-            value={activeNote.body}
+            value={activeNote.content || ""}
             onChange={(e) => onEditField("body", e.target.value)}
             autoFocus
           />

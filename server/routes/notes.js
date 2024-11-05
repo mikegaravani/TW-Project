@@ -1,3 +1,5 @@
+// TODO only note owner can delete/modify note
+
 const express = require("express");
 const jwt = require("jsonwebtoken");
 const router = express.Router();
@@ -17,6 +19,7 @@ router.post("/new", async (req, res) => {
       userId: req.user._id,
       title: req.body.title,
       content: req.body.content,
+      lastModified: new Date(),
     });
     await note.save();
     res.status(201).json(note);

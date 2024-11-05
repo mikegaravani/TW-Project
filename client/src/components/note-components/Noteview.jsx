@@ -1,14 +1,33 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
 
 function NoteView({ activeNote, onUpdateNote }) {
-  const onEditField = (key, value) => {
-    onUpdateNote({
-      ...activeNote,
-      [key]: value,
-      lastModified: Date.now(),
-    });
-  };
+  const [title, setTitle] = useState(activeNote?.title || "");
+  const [content, setContent] = useState(activeNote?.content || "");
+
+  useEffect(() => {
+    if (activeNote) {
+      setTitle(activeNote.title || "");
+      setContent(activeNote.content || "");
+    }
+  }, [activeNote]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (
+        activeNote &&
+        (title !== activeNote.title || content !== activeNote.content)
+      ) {
+        onUpdateNote({
+          ...activeNote,
+          title: title,
+          content: content,
+          lastModified: Date.now(),
+        });
+      }
+    }, 500);
+    return () => clearTimeout(timer);
+  }, [title, content, activeNote, onUpdateNote]);
 
   if (!activeNote) return <div className="no-active-note">Your notes!</div>;
 
@@ -19,24 +38,22 @@ function NoteView({ activeNote, onUpdateNote }) {
           <input
             type="text"
             id="title"
-            value={activeNote.title || ""}
-            onChange={(e) => onEditField("title", e.target.value)}
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
           />
 
           <textarea
-            id="body"
+            id="content"
             placeholder="Write your note here..."
-            value={activeNote.content || ""}
-            onChange={(e) => onEditField("body", e.target.value)}
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
             autoFocus
           />
         </div>
 
         <div className="app-main-note-preview">
-          <h1 className="preview-title">{activeNote.title}</h1>
-          <ReactMarkdown className="markdown-preview">
-            {activeNote.body}
-          </ReactMarkdown>
+          <h1 className="preview-title">{title}</h1>
+          <ReactMarkdown className="markdown-preview">{content}</ReactMarkdown>
         </div>
       </div>
     </>

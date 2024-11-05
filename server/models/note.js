@@ -44,11 +44,11 @@ const noteSchema = new mongoose.Schema({
   tasks: [taskSchema],
   created: {
     type: Date,
-    default: Date.now,
+    default: Date.now(),
   },
-  updated: {
+  lastModified: {
     type: Date,
-    default: Date.now,
+    default: Date.now(),
   },
 });
 

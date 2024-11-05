@@ -83,6 +83,7 @@ function Notes() {
   return (
     <>
       <div className="App">
+        <button onClick={() => navigate("/")}>BACK HOME</button>
         <Sidebar
           notes={notes}
           onAddNote={onAddNote}

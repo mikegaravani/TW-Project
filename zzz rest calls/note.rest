@@ -13,8 +13,7 @@ Content-Type: application/json
 
 // Get all user notes
 GET http://localhost:5000/notes/all
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MDAwYzYzOTBkOTM2OWVhYjM1NjQ0ZiIsImlhdCI6MTcyODA1NjQxOX0.zLqMIe09Uuz1OXvceBTZxeMxlCKpfi2tUbHGwIimT_A
-
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzM0N2U4NTQ2NjQ1ZjBkOTA0MzUxOCIsImlhdCI6MTczMDg0MjE2NH0.L1EealDdMGnaY9B_x1GiLYf7cIncJlyFW0pqVkgMV-E
 ###
 
 // Delete a user note
@@ -24,10 +23,10 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MDAwYzYzOTBkOTM2
 ###
 
 // Update a user note
-PUT http://localhost:5000/notes/update/67000d1e90d9369eab356465
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2Yzc2NzM1ZDI2MWJmNjYyYjExMGMxZCIsImlhdCI6MTcyNDM0NDI0OH0.GisOaxci_bIVT1tQqArwwFsj7Sk7VHDkQnQ2kcsbPGs
+PUT http://localhost:5000/notes/update/672a8aafb64a6183efddd3e9
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2Yzc2NzM1ZDI2MWJmNjYyYjExMGMxZCIsImlhdCI6MTczMDg0MjM5N30.iFpjyGgXmaI-19qBeAusPvVosMi7bsIrj2CRcsSMrIo
 Content-Type: application/json
 
 {
-    "content": "jingle bells jingle bells jingle all the way oh what fun it is to ride in a one horse open sleigh"
+    "content": "can update another users note"
 }

@@ -9,7 +9,9 @@ function Sidebar({
   activeNote,
   setActiveNote,
 }) {
-  const sortedNotes = notes.sort((a, b) => b.lastModified - a.lastModified);
+  const sortedNotes = [...notes].sort(
+    (a, b) => new Date(b.lastModified) - new Date(a.lastModified)
+  );
 
   return (
     <div className="app-sidebar">
@@ -42,9 +44,9 @@ function Sidebar({
             </div>
 
             <p>
-              {note.body &&
-                note.body.substring(0, charactersShown) +
-                  (note.body.length > charactersShown ? "..." : "")}
+              {note.content &&
+                note.content.substring(0, charactersShown) +
+                  (note.content.length > charactersShown ? "..." : "")}
             </p>
 
             <small className="note-meta">

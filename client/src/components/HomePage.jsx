@@ -57,6 +57,8 @@ function HomePage() {
         <button onClick={handleLogout}>LOGOUT</button>
         <br />
         <button onClick={() => navigate("/note-editor")}>Your Notes</button>
+        <br />
+        <button onClick={() => navigate("/pomodoro")}>Pomodoro</button>
       </div>
 
       {error && <Alert variant="danger">{error}</Alert>}

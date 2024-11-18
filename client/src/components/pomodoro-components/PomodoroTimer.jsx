@@ -5,6 +5,7 @@ function PomodoroTimer({
   initialFocusTime = 30 * 60,
   initialRelaxTime = 5 * 60,
   onStateChange,
+  defaultMinutesToAdd = 2,
 }) {
   const [isFocus, setIsFocus] = useState(true);
   const [timeLeft, setTimeLeft] = useState(initialFocusTime);
@@ -35,6 +36,10 @@ function PomodoroTimer({
     }
   };
 
+  const addMinutes = (minutes) => {
+    setTimeLeft((prev) => prev + minutes * 60);
+  };
+
   useEffect(() => {
     let timer;
     if (isRunning && timeLeft > 0) {
@@ -62,7 +67,9 @@ function PomodoroTimer({
         <br />
         <button onClick={resetTimer}>Restart section</button>
         <br />
-        <button>+2 Minutes TODO</button>
+        <button onClick={() => addMinutes(defaultMinutesToAdd)}>
+          +{defaultMinutesToAdd} Minutes
+        </button>
         <br />
         <div>
           <h3>

@@ -9,7 +9,7 @@ function BasicPomodoro() {
       </div>
       <br />
       <div>
-        <button>SESSION PLANNER</button>
+        <button>SESSION PLANNER TODO</button>
       </div>
       <br />
       <div>

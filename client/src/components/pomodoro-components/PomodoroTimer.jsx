@@ -1,15 +1,20 @@
 import React, { useState, useEffect } from "react";
+import Popup from "../reusables/Popup";
 
 function PomodoroTimer({
   // Props
   initialFocusTime = 30 * 60,
   initialRelaxTime = 5 * 60,
   onStateChange,
-  defaultMinutesToAdd = 2,
 }) {
   const [isFocus, setIsFocus] = useState(true);
   const [timeLeft, setTimeLeft] = useState(initialFocusTime);
   const [isRunning, setIsRunning] = useState(false);
+
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const [minutesToAdd, setMinutesToAdd] = useState(2);
+
+  const toggleSettings = () => setIsSettingsOpen(!isSettingsOpen);
 
   const formatTime = (seconds) => {
     const minutes = Math.floor(seconds / 60);
@@ -62,13 +67,49 @@ function PomodoroTimer({
       <div>
         <button onClick={toggleTimer}>{isRunning ? "Pause" : "Start"}</button>
         <br />
-        {/* Settings, change +2 minutes duration, new default */}
-        <button>Settings TODO</button>
+        <button onClick={toggleSettings}>Settings TODO</button>
+
+        <Popup isOpen={isSettingsOpen} onClose={toggleSettings}>
+          <h3>Settings</h3>
+          <div>
+            <label>
+              Customize Time Increment Button (in Minutes):
+              <input
+                type="number"
+                value={minutesToAdd === "" ? "" : minutesToAdd}
+                onChange={(e) => {
+                  const value = e.target.value;
+
+                  if (value === "") {
+                    setMinutesToAdd("");
+                  } else {
+                    const numericValue = Number(value);
+
+                    if (numericValue > 99) {
+                      setMinutesToAdd(99);
+                    } else if (numericValue >= 1) {
+                      setMinutesToAdd(numericValue);
+                    }
+                  }
+                }}
+                onBlur={() => {
+                  if (minutesToAdd === "") {
+                    setMinutesToAdd(1);
+                  }
+                }}
+                min="1"
+                max="99"
+              />
+            </label>
+          </div>
+          <button onClick={toggleSettings}>Close</button>
+        </Popup>
+
         <br />
         <button onClick={resetTimer}>Restart section</button>
         <br />
-        <button onClick={() => addMinutes(defaultMinutesToAdd)}>
-          +{defaultMinutesToAdd} Minutes
+        <button onClick={() => addMinutes(minutesToAdd)}>
+          +{minutesToAdd} Minutes
         </button>
         <br />
         <div>

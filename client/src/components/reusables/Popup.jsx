@@ -33,7 +33,7 @@ const popupStyle = {
   background: "white",
   padding: "20px",
   borderRadius: "8px",
-  width: "300px",
+  width: "800px",
   maxWidth: "90%",
   boxShadow: "0 2px 10px rgba(0, 0, 0, 0.1)",
 };

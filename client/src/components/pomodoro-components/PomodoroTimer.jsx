@@ -71,9 +71,12 @@ function PomodoroTimer({
 
         <Popup isOpen={isSettingsOpen} onClose={toggleSettings}>
           <h3>Settings</h3>
+
+          <br />
+
           <div>
             <label>
-              Customize Time Increment Button (in Minutes):
+              <h6>Customize Time Increment Button (in Minutes):</h6>
               <input
                 type="number"
                 value={minutesToAdd === "" ? "" : minutesToAdd}
@@ -102,7 +105,12 @@ function PomodoroTimer({
               />
             </label>
           </div>
+
+          <br />
+
           <button onClick={toggleSettings}>Close</button>
+
+          <br />
         </Popup>
 
         <br />

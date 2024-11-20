@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import PomodoroTimer from "./PomodoroTimer";
 import lightbulb from "../../assets/lightbulb.png";
+import "./BasicPomodoro.css";
 
 function BasicPomodoro() {
   return (
@@ -40,21 +41,25 @@ const headerStyle = {
   fontSize: "3rem",
   color: "#333",
   margin: "20px 0",
+
+  "@media (max-width: 768px)": {
+    fontSize: "2rem",
+  },
 };
 
 const contentWrapperStyle = {
   flex: 1,
   display: "flex",
   flexDirection: "column",
-  alignItems: "center",
   justifyContent: "center",
+  alignItems: "center",
 };
 
 const containerStyle = {
   position: "relative",
   width: "100%",
-  maxWidth: "500px",
-  backgroundColor: "#fff",
+  maxWidth: "700px",
+  backgroundColor: "#f9f9f9",
   padding: "20px",
   borderRadius: "10px",
   boxShadow: "0 2px 10px rgba(0, 0, 0, 0.1)",
@@ -67,7 +72,7 @@ const buttonStyle = {
   left: "10px",
   width: "55px",
   height: "55px",
-  backgroundColor: "#007bff",
+  backgroundColor: "#ff7f7f",
   backgroundImage: `url(${lightbulb})`,
   backgroundSize: "70%",
   backgroundPosition: "center",

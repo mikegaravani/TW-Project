@@ -74,6 +74,7 @@ function PomodoroTimer({
         <h1 className="timer-time">{formatTime(timeLeft)}</h1>
 
         <div className="timer-buttons">
+          {/* PLAY/PAUSE BUTTON */}
           <button
             className="timer-button tmr-play-pause"
             style={{
@@ -82,81 +83,85 @@ function PomodoroTimer({
             onClick={toggleTimer}
           ></button>
 
-          <button
-            className="timer-button tmr-settings"
-            style={{ backgroundImage: `url(${settingsIcon})` }}
-            onClick={toggleSettings}
-          ></button>
-
-          <Popup isOpen={isSettingsOpen} onClose={toggleSettings}>
-            <h3>Settings</h3>
-
-            <br />
-
-            <div>
-              <label>
-                <h6>Customize Time Increment Button (in Minutes):</h6>
-                <input
-                  type="number"
-                  value={minutesToAdd === "" ? "" : minutesToAdd}
-                  onChange={(e) => {
-                    const value = e.target.value;
-
-                    if (value === "") {
-                      setMinutesToAdd("");
-                    } else {
-                      const numericValue = Number(value);
-
-                      if (numericValue > 99) {
-                        setMinutesToAdd(99);
-                      } else if (numericValue >= 1) {
-                        setMinutesToAdd(numericValue);
-                      }
-                    }
-                  }}
-                  onBlur={() => {
-                    if (minutesToAdd === "") {
-                      setMinutesToAdd(1);
-                    }
-                  }}
-                  min="1"
-                  max="99"
-                />
-              </label>
-            </div>
-
-            <br />
-
-            <button onClick={toggleSettings}>Close</button>
-
-            <br />
-          </Popup>
-
-          <button
-            className="timer-button tmr-restart"
-            style={{ backgroundImage: `url(${restartIcon})` }}
-            onClick={resetTimer}
-          ></button>
-
+          {/* ADD MINUTES BUTTON */}
           <button
             className="timer-button tmr-add-minutes"
             style={{ backgroundImage: `url(${addTimeIcon})` }}
             onClick={() => addMinutes(minutesToAdd)}
           ></button>
 
+          {/* RESTART BUTTON */}
+          <button
+            className="timer-button tmr-restart"
+            style={{ backgroundImage: `url(${restartIcon})` }}
+            onClick={resetTimer}
+          ></button>
+
+          {/* JUMP BUTTON */}
           <button
             className="timer-button tmr-jump"
             style={{ backgroundImage: `url(${jumpIcon})` }}
             onClick={switchState}
           ></button>
+
+          {/* SETTINGS BUTTON */}
+          <button
+            className="timer-button tmr-settings"
+            style={{ backgroundImage: `url(${settingsIcon})` }}
+            onClick={toggleSettings}
+          ></button>
         </div>
 
         <div className="timer-next-up">
-          <h3>
+          <h3 className="timer-next-up-text">
             Next up: {isFocus ? initialRelaxTime / 60 : initialFocusTime / 60}{" "}
             minutes of {isFocus ? "relax" : "focus"}.
           </h3>
         </div>
+
+        <Popup isOpen={isSettingsOpen} onClose={toggleSettings}>
+          <h3>Settings</h3>
+
+          <br />
+
+          <div>
+            <label>
+              <h6>Customize Time Increment Button (in Minutes):</h6>
+              <input
+                type="number"
+                value={minutesToAdd === "" ? "" : minutesToAdd}
+                onChange={(e) => {
+                  const value = e.target.value;
+
+                  if (value === "") {
+                    setMinutesToAdd("");
+                  } else {
+                    const numericValue = Number(value);
+
+                    if (numericValue > 99) {
+                      setMinutesToAdd(99);
+                    } else if (numericValue >= 1) {
+                      setMinutesToAdd(numericValue);
+                    }
+                  }
+                }}
+                onBlur={() => {
+                  if (minutesToAdd === "") {
+                    setMinutesToAdd(1);
+                  }
+                }}
+                min="1"
+                max="99"
+              />
+            </label>
+          </div>
+
+          <br />
+
+          <button onClick={toggleSettings}>Close</button>
+
+          <br />
+        </Popup>
       </div>
     </>
   );

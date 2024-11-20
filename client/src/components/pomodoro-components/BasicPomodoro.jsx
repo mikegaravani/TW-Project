@@ -4,22 +4,40 @@ import lightbulb from "../../assets/lightbulb.png";
 import "./BasicPomodoro.css";
 
 function BasicPomodoro() {
+  const [currentMode, setCurrentMode] = useState("focus");
+
+  const handleStateChange = (mode) => {
+    setCurrentMode(mode);
+  };
+
   return (
     <>
       <div className="bg-style">
-        <h1 className="header-style">Your pomodoro, user</h1>
+        <div className="header-container">
+          <h1
+            className={`header-style ${
+              currentMode === "focus" ? "header-focus" : "header-relax"
+            }`}
+          >
+            Your pomodoro, user
+          </h1>
+        </div>
         <div className="content-wrapper-style">
-          <div className="container-style">
+          <div
+            className={`container-style ${
+              currentMode === "focus" ? "container-focus" : "container-relax"
+            }`}
+          >
             {/* SESSION PLANNER */}
             <button
-              className="button-style"
+              className={`button-style ${
+                currentMode === "focus" ? "button-focus" : "button-relax"
+              }`}
               style={{ backgroundImage: `url(${lightbulb})` }}
-              onMouseOver={(e) => (e.target.style.backgroundColor = "crimson")}
-              onMouseOut={(e) => (e.target.style.backgroundColor = "#ff7f7f")}
             ></button>
 
             <div className="timer-container-style">
-              <PomodoroTimer />
+              <PomodoroTimer onStateChange={handleStateChange} />
             </div>
           </div>
         </div>

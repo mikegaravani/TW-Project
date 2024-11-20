@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Popup from "../reusables/Popup";
+import Settings from "../reusables/Settings";
 import "./PomodoroTimer.css";
 
 import addTimeIcon from "../../assets/addtime.png";
@@ -22,7 +23,21 @@ function PomodoroTimer({
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [minutesToAdd, setMinutesToAdd] = useState(2);
 
-  const toggleSettings = () => setIsSettingsOpen(!isSettingsOpen);
+  const [settingsSnapshot, setSettingsSnapshot] = useState({ minutesToAdd });
+
+  const openSettings = () => {
+    setSettingsSnapshot({ minutesToAdd });
+    setIsSettingsOpen(true);
+  };
+
+  const closeSettings = () => {
+    setMinutesToAdd(settingsSnapshot.minutesToAdd);
+    setIsSettingsOpen(false);
+  };
+
+  const saveSettings = () => {
+    setIsSettingsOpen(false);
+  };
 
   const formatTime = (seconds) => {
     const minutes = Math.floor(seconds / 60);
@@ -51,6 +66,27 @@ function PomodoroTimer({
 
   const addMinutes = (minutes) => {
     setTimeLeft((prev) => prev + minutes * 60);
+  };
+
+  // Needed for changing the default "Add minutes" value
+  const handleMinutesChange = (e) => {
+    const value = e.target.value;
+    if (value === "") {
+      setMinutesToAdd("");
+    } else {
+      const numericValue = Number(value);
+      if (numericValue > 99) {
+        setMinutesToAdd(99);
+      } else if (numericValue >= 1) {
+        setMinutesToAdd(numericValue);
+      }
+    }
+  };
+
+  const handleBlur = () => {
+    if (minutesToAdd === "") {
+      setMinutesToAdd(1);
+    }
   };
 
   useEffect(() => {
@@ -108,7 +144,7 @@ function PomodoroTimer({
           <button
             className="timer-button tmr-settings"
             style={{ backgroundImage: `url(${settingsIcon})` }}
-            onClick={toggleSettings}
+            onClick={openSettings}
           ></button>
         </div>
 
@@ -119,49 +155,24 @@ function PomodoroTimer({
           </h3>
         </div>
 
-        <Popup isOpen={isSettingsOpen} onClose={toggleSettings}>
-          <h3>Settings</h3>
-
-          <br />
-
-          <div>
-            <label>
-              <h6>Customize Time Increment Button (in Minutes):</h6>
-              <input
-                type="number"
-                value={minutesToAdd === "" ? "" : minutesToAdd}
-                onChange={(e) => {
-                  const value = e.target.value;
-
-                  if (value === "") {
-                    setMinutesToAdd("");
-                  } else {
-                    const numericValue = Number(value);
-
-                    if (numericValue > 99) {
-                      setMinutesToAdd(99);
-                    } else if (numericValue >= 1) {
-                      setMinutesToAdd(numericValue);
-                    }
-                  }
-                }}
-                onBlur={() => {
-                  if (minutesToAdd === "") {
-                    setMinutesToAdd(1);
-                  }
-                }}
-                min="1"
-                max="99"
-              />
-            </label>
-          </div>
-
-          <br />
-
-          <button onClick={toggleSettings}>Close</button>
-
-          <br />
-        </Popup>
+        <Settings
+          isOpen={isSettingsOpen}
+          onClose={closeSettings}
+          onSave={saveSettings}
+        >
+          <label className="settings-label">
+            Time Increment (Minutes):
+            <input
+              type="number"
+              className="settings-input"
+              value={minutesToAdd === "" ? "" : minutesToAdd}
+              onChange={handleMinutesChange}
+              onBlur={handleBlur}
+              min="1"
+              max="99"
+            />
+          </label>
+        </Settings>
       </div>
     </>
   );

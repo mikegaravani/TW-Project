@@ -61,6 +61,9 @@
   background-position: center;
 }
 
+.tmr-play-pause {
+  background-size: 63%;
+}
 .tmr-settings {
   background-size: 66%;
 }

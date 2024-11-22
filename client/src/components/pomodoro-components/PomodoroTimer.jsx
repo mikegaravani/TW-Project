@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Popup from "../reusables/Popup";
 import Settings from "../reusables/Settings";
 import "./PomodoroTimer.css";
 
@@ -23,19 +22,51 @@ function PomodoroTimer({
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [minutesToAdd, setMinutesToAdd] = useState(2);
 
-  const [settingsSnapshot, setSettingsSnapshot] = useState({ minutesToAdd });
+  const [focusTime, setFocusTime] = useState(initialFocusTime);
+  const [relaxTime, setRelaxTime] = useState(initialRelaxTime);
+
+  const [settingsSnapshot, setSettingsSnapshot] = useState({
+    minutesToAdd,
+    focusTime,
+    relaxTime,
+    applyImmediately: false,
+  });
+
+  const maxMinutesToAddInSettings = 99;
+  const maxFocusMinutesInSettings = 240;
+  const maxRelaxMinutesInSettings = 240;
 
   const openSettings = () => {
-    setSettingsSnapshot({ minutesToAdd });
+    setSettingsSnapshot({
+      minutesToAdd,
+      focusTime,
+      relaxTime,
+      applyImmediately: false,
+    });
     setIsSettingsOpen(true);
   };
 
   const closeSettings = () => {
-    setMinutesToAdd(settingsSnapshot.minutesToAdd);
+    // setMinutesToAdd(settingsSnapshot.minutesToAdd);
+    // setFocusTime(settingsSnapshot.focusTime);
+    // setRelaxTime(settingsSnapshot.relaxTime);
     setIsSettingsOpen(false);
   };
 
   const saveSettings = () => {
+    const {
+      focusTime: newFocusTime,
+      relaxTime: newRelaxTime,
+      applyImmediately,
+    } = settingsSnapshot;
+
+    setFocusTime(newFocusTime);
+    setRelaxTime(newRelaxTime);
+
+    if (applyImmediately) {
+      setTimeLeft(isFocus ? newFocusTime : newRelaxTime);
+    }
+
     setIsSettingsOpen(false);
   };
 
@@ -52,13 +83,13 @@ function PomodoroTimer({
 
   const resetTimer = () => {
     setIsRunning(false);
-    setTimeLeft(isFocus ? initialFocusTime : initialRelaxTime);
+    setTimeLeft(isFocus ? focusTime : relaxTime);
   };
 
   const switchState = () => {
     const nextIsFocus = !isFocus;
     setIsFocus(nextIsFocus);
-    setTimeLeft(nextIsFocus ? initialFocusTime : initialRelaxTime);
+    setTimeLeft(nextIsFocus ? focusTime : relaxTime);
     if (onStateChange) {
       onStateChange(nextIsFocus ? "focus" : "relax");
     }
@@ -75,8 +106,8 @@ function PomodoroTimer({
       setMinutesToAdd("");
     } else {
       const numericValue = Number(value);
-      if (numericValue > 99) {
-        setMinutesToAdd(99);
+      if (numericValue > maxMinutesToAddInSettings) {
+        setMinutesToAdd(maxMinutesToAddInSettings);
       } else if (numericValue >= 1) {
         setMinutesToAdd(numericValue);
       }
@@ -87,6 +118,15 @@ function PomodoroTimer({
     if (minutesToAdd === "") {
       setMinutesToAdd(1);
     }
+  };
+
+  const handleTimeBlur = (key, previousValue) => {
+    setSettingsSnapshot((prev) => {
+      if (prev[key] === "") {
+        return { ...prev, [key]: previousValue };
+      }
+      return prev;
+    });
   };
 
   useEffect(() => {
@@ -150,7 +190,7 @@ function PomodoroTimer({
 
         <div className="timer-next-up">
           <h3 className="timer-next-up-text">
-            Next up: {isFocus ? initialRelaxTime / 60 : initialFocusTime / 60}{" "}
+            Next up: {Math.floor(isFocus ? relaxTime / 60 : focusTime / 60)}{" "}
             minutes of {isFocus ? "relax" : "focus"}.
           </h3>
         </div>
@@ -160,6 +200,80 @@ function PomodoroTimer({
           onClose={closeSettings}
           onSave={saveSettings}
         >
+          {/* Focus Time Input */}
+          <label className="settings-label">
+            Focus Time (Minutes):
+            <input
+              type="number"
+              value={
+                settingsSnapshot.focusTime === ""
+                  ? ""
+                  : Math.floor(settingsSnapshot.focusTime / 60)
+              }
+              onChange={(e) => {
+                const value = e.target.value;
+                setSettingsSnapshot((prev) => ({
+                  ...prev,
+                  focusTime:
+                    value === ""
+                      ? ""
+                      : Math.max(
+                          1,
+                          Math.min(Number(value), maxFocusMinutesInSettings)
+                        ) * 60,
+                }));
+              }}
+              onBlur={() => {
+                handleTimeBlur("focusTime", focusTime);
+              }}
+            />
+          </label>
+
+          {/* Relax Time Input */}
+          <label className="settings-label">
+            Relax Time (Minutes):
+            <input
+              type="number"
+              value={
+                settingsSnapshot.relaxTime === ""
+                  ? ""
+                  : Math.floor(settingsSnapshot.relaxTime / 60)
+              }
+              onChange={(e) => {
+                const value = e.target.value;
+                setSettingsSnapshot((prev) => ({
+                  ...prev,
+                  relaxTime:
+                    value === ""
+                      ? ""
+                      : Math.max(
+                          1,
+                          Math.min(Number(value), maxRelaxMinutesInSettings)
+                        ) * 60,
+                }));
+              }}
+              onBlur={() => {
+                handleTimeBlur("relaxTime", relaxTime);
+              }}
+            />
+          </label>
+
+          {/* Apply Immediately Checkbox */}
+          <label>
+            <input
+              type="checkbox"
+              checked={settingsSnapshot.applyImmediately}
+              onChange={(e) => {
+                setSettingsSnapshot((prev) => ({
+                  ...prev,
+                  applyImmediately: e.target.checked,
+                }));
+              }}
+            />{" "}
+            Apply changes immediately
+          </label>
+
+          {/* Time Increment Input */}
           <label className="settings-label">
             Time Increment (Minutes):
             <input
@@ -169,7 +283,7 @@ function PomodoroTimer({
               onChange={handleMinutesChange}
               onBlur={handleBlur}
               min="1"
-              max="99"
+              max="maxMinutesToAddInSettings"
             />
           </label>
         </Settings>

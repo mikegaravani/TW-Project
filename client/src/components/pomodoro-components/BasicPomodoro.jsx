@@ -12,7 +12,11 @@ function BasicPomodoro() {
 
   return (
     <>
-      <div className="bg-style">
+      <div
+        className={`bg-style ${
+          currentMode === "focus" ? "bg-focus" : "bg-relax"
+        }`}
+      >
         <div className="header-container">
           <h1
             className={`header-style ${

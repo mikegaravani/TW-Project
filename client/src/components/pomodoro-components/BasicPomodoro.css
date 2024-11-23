@@ -9,9 +9,16 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background-color: #f7f9fc;
+  background: #f7f9fc;
   font-family: "Arial", sans-serif;
   padding: 20px;
+}
+
+.bg-focus {
+  background: linear-gradient(#f7f9fc, #007bff4c);
+}
+.bg-relax {
+  background: linear-gradient(#f7f9fc, #28a7454c);
 }
 
 .header-container {

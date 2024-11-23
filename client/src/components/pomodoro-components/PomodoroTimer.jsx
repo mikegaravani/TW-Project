@@ -10,7 +10,6 @@ import restartIcon from "../../assets/restart.png";
 import jumpIcon from "../../assets/jump.png";
 
 function PomodoroTimer({
-  // Props
   initialFocusTime = 30 * 60,
   initialRelaxTime = 5 * 60,
   onStateChange,
@@ -29,7 +28,7 @@ function PomodoroTimer({
     minutesToAdd,
     focusTime,
     relaxTime,
-    applyImmediately: false,
+    applyImmediately: true,
   });
 
   const maxMinutesToAddInSettings = 99;
@@ -41,15 +40,12 @@ function PomodoroTimer({
       minutesToAdd,
       focusTime,
       relaxTime,
-      applyImmediately: false,
+      applyImmediately: true,
     });
     setIsSettingsOpen(true);
   };
 
   const closeSettings = () => {
-    // setMinutesToAdd(settingsSnapshot.minutesToAdd);
-    // setFocusTime(settingsSnapshot.focusTime);
-    // setRelaxTime(settingsSnapshot.relaxTime);
     setIsSettingsOpen(false);
   };
 
@@ -200,6 +196,8 @@ function PomodoroTimer({
           onClose={closeSettings}
           onSave={saveSettings}
         >
+          <h6 className="settings-chapter">Session settings</h6>
+
           {/* Focus Time Input */}
           <label className="settings-label">
             Focus Time (Minutes):
@@ -272,6 +270,10 @@ function PomodoroTimer({
             />{" "}
             Apply changes immediately
           </label>
+
+          <br />
+
+          <h6 className="settings-chapter">More settings</h6>
 
           {/* Time Increment Input */}
           <label className="settings-label">

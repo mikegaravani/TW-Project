@@ -44,7 +44,7 @@ body {
   }
 }
 
-.header-focus {
+/* .header-focus {
   background: linear-gradient(90deg, #007bff 0%, #28a745 100%);
   background-clip: text;
   -webkit-background-clip: text;
@@ -55,7 +55,7 @@ body {
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-}
+} */
 
 .content-wrapper-style {
   flex: 1;

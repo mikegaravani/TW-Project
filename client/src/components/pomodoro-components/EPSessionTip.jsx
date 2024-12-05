@@ -1,7 +1,7 @@
 import React from "react";
 import lightbulbBlack from "../../assets/lightbulb-black.png";
 
-function EPSessionTip() {
+function EPSessionTip({ onSPClick }) {
   return (
     <>
       <div className="flex flex-col justify-between h-full">
@@ -19,7 +19,10 @@ function EPSessionTip() {
             time based on your preferred pace!
           </h6>
         </div>
-        <button className="mt-4 flex justify-center bg-blue-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-300">
+        <button
+          onClick={onSPClick}
+          className="mt-4 flex justify-center bg-blue-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-300"
+        >
           SESSION PLANNER
         </button>
       </div>

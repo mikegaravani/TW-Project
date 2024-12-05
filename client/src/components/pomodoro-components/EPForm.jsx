@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 
-function EPForm() {
+function EPForm({ onStart }) {
   const [focusValue, setFocusValue] = useState("30");
   const [relaxValue, setRelaxValue] = useState("5");
   const [cyclesValue, setCyclesValue] = useState("infinity");
   const [customFocus, setCustomFocus] = useState("");
   const [customRelax, setCustomRelax] = useState("");
   const [customCycles, setCustomCycles] = useState("");
+
+  const handleStartClick = () => {
+    onStart(cyclesValue);
+  };
 
   return (
     <>
@@ -109,7 +113,10 @@ function EPForm() {
               />
             )}
           </div>
-          <button className="bg-blue-500 text-white font-semibold py-2 rounded-lg hover:bg-blue-300">
+          <button
+            onClick={handleStartClick}
+            className="bg-blue-500 text-white font-semibold py-2 rounded-lg hover:bg-blue-300"
+          >
             Start
           </button>
         </div>

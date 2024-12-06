@@ -1,8 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import arrowBack from "../../assets/arrow-back.png";
 import SPBForm from "./SPBForm";
+import SPPopup from "./SPPopup";
 
 function SPBuilder() {
+  const [isPopupVisible, setPopupVisible] = React.useState(false);
+
+  const handleStart = () => {
+    setPopupVisible(true);
+  };
+
+  const handleClosePopup = () => {
+    setPopupVisible(false);
+  };
+
   return (
     <>
       <div className="bg-gray-100 min-h-screen flex flex-col items-center pb-4">
@@ -20,15 +31,21 @@ function SPBuilder() {
           <h1 className="text-3xl lg:text-5xl font-bold">BUILD YOUR SESSION</h1>
         </header>
 
-        <main className="flex flex-col justify-center items-stretch gap-8 mt-8 px-4 lg:px-16 w-full max-w-3xl">
+        <main className="flex flex-col justify-center items-stretch gap-8 mt-4 px-4 lg:px-16 w-full max-w-3xl">
           <div className="bg-white shadow-lg rounded-lg p-6 flex-1">
             <SPBForm />
           </div>
-          <button className="bg-blue-500 text-white font-semibold py-2 rounded-lg hover:bg-blue-300 hover:text-white">
+          <button
+            onClick={handleStart}
+            className="bg-blue-500 text-white font-semibold py-2 rounded-lg hover:bg-blue-300 hover:text-white"
+          >
             Start
           </button>
         </main>
       </div>
+
+      {/* SESSION CONFIRMATION POPUP */}
+      {isPopupVisible && <SPPopup onClose={handleClosePopup} />}
     </>
   );
 }

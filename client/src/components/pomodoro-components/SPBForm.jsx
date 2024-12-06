@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Alert from "../reusables/Alert";
+import xButton from "../../assets/x-button.png";
 
 function SPBForm() {
   const [hours, setHours] = useState("2");
@@ -69,19 +70,19 @@ function SPBForm() {
             <div className="flex justify-evenly gap-3 lg:h-16 text-sm lg:text-xl">
               <button
                 type="button"
-                class="flex-1 text-white bg-blue-500 hover:bg-blue-400 focus:bg-black font-medium rounded-lg px-5 py-2.5 me-2 mb-2 focus:outline-none hover:text-white"
+                className="flex-1 text-white bg-blue-500 hover:bg-blue-400 focus:bg-black font-medium rounded-lg px-5 py-2.5 me-2 mb-2 focus:outline-none hover:text-white"
               >
                 CHILL
               </button>
               <button
                 type="button"
-                class="flex-1 text-white bg-blue-500 hover:bg-blue-400 focus:bg-black font-medium rounded-lg px-5 py-2.5 me-2 mb-2 focus:outline-none hover:text-white"
+                className="flex-1 text-white bg-blue-500 hover:bg-blue-400 focus:bg-black font-medium rounded-lg px-5 py-2.5 me-2 mb-2 focus:outline-none hover:text-white"
               >
                 MEDIUM
               </button>
               <button
                 type="button"
-                class="flex-1 text-white bg-blue-500 hover:bg-blue-400 focus:bg-black font-medium rounded-lg px-5 py-2.5 me-2 mb-2 focus:outline-none hover:text-white"
+                className="flex-1 text-white bg-blue-500 hover:bg-blue-400 focus:bg-black font-medium rounded-lg px-5 py-2.5 me-2 mb-2 focus:outline-none hover:text-white"
               >
                 INTENSE
               </button>

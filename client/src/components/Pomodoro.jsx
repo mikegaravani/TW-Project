@@ -18,7 +18,7 @@ function Pomodoro() {
   };
 
   const handleSPClick = () => {
-    setCurrentPage("sPPomodoro");
+    setCurrentPage("sPBuilder");
   };
 
   return (
@@ -27,6 +27,7 @@ function Pomodoro() {
     //     <EntryPage onStart={handleStart} onSPClick={handleSPClick} />
     //   )}
     //   {currentPage === "basicPomodoro" && <BasicPomodoro />}
+    //   {currentPage === "sPBuilder" && <SPBuilder />}
     //   {currentPage === "sPPomodoro" && <SPPomodoro />}
     // </>
 

@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import Alert from "../reusables/Alert";
 import xButton from "../../assets/x-button.png";
+import hideIcon from "../../assets/minus-sign.png";
 
 function SPBForm() {
   const [hours, setHours] = useState("2");
   const [minutes, setMinutes] = useState("30");
 
   const [cyclesType, setCyclesType] = useState("long");
+
+  const [isBoxHidden, setIsBoxHidden] = useState(false);
 
   const handleHoursChange = (e) => {
     let value = parseInt(e.target.value, 10);
@@ -26,6 +29,10 @@ function SPBForm() {
 
   const handleCyclesType = (type) => {
     setCyclesType(type);
+  };
+
+  const handleBoxHide = () => {
+    setIsBoxHidden(!isBoxHidden);
   };
 
   return (
@@ -82,15 +89,28 @@ function SPBForm() {
               </button>
               <button
                 type="button"
-                className="flex-1 text-white bg-blue-500 hover:bg-blue-400 focus:bg-black font-medium rounded-lg px-5 py-2.5 me-2 mb-2 focus:outline-none hover:text-white"
+                className="flex-1 text-white bg-blue-500 hover:bg-blue-400 focus:bg-black font-medium rounded-lg px-5 py-2.5 me-0 mb-2 focus:outline-none hover:text-white"
               >
                 INTENSE
               </button>
             </div>
 
-            <div className="bg-gray-200 rounded-lg mt-1 px-4 py-3">
-              <p className="font-bold">About the session intensities:</p>
-              <p className="text-sm">
+            <div
+              className={`bg-gray-200 rounded-lg mt-1 px-4 py-3 relative   ${isBoxHidden ? "pb-5" : ""}`}
+            >
+              {/* HIDE TAB BUTTON */}
+              <button
+                type="button"
+                className={`absolute top-2 right-4 rounded hover:bg-gray-300`}
+                onClick={handleBoxHide}
+              >
+                <img src={hideIcon} alt="Hide" className="h-4 w-4" />
+              </button>
+
+              <p className={`font-bold ${isBoxHidden ? "hidden" : ""}`}>
+                About the session intensities:
+              </p>
+              <p className={`text-sm ${isBoxHidden ? "hidden" : ""}`}>
                 You can choose the ratio of relax time to focus time. By
                 default, the <span className="font-semibold">CHILL</span>{" "}
                 session has 20% relax, the{" "}

@@ -4,6 +4,10 @@ import SPPomodoro from "./pomodoro-components/SPPomodoro";
 import EntryPage from "./pomodoro-components/EntryPage";
 import SPBuilder from "./pomodoro-components/SPBuilder";
 
+// TODO check if these work from here
+const blueColor = "#007bff";
+const greenColor = "#28a745";
+
 // CONDITIONAL RENDERING
 
 function Pomodoro() {
@@ -33,7 +37,7 @@ function Pomodoro() {
 
     // TODO for testing only
     <>
-      <SPPomodoro />
+      <SPBuilder />
     </>
   );
 }

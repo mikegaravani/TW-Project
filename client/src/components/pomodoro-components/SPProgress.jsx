@@ -13,7 +13,7 @@ function SPProgress() {
     },
     {
       time: "5 min",
-      description: "BREAK",
+      description: "RELAX",
       color: greenColor,
     },
     {
@@ -23,7 +23,7 @@ function SPProgress() {
     },
     {
       time: "5 min",
-      description: "BREAK",
+      description: "RELAX",
       color: greenColor,
     },
     {
@@ -33,7 +33,7 @@ function SPProgress() {
     },
     {
       time: "5 min",
-      description: "BREAK",
+      description: "RELAX",
       color: greenColor,
     },
     {

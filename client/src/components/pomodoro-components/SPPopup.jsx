@@ -15,7 +15,7 @@ function SPPopup({ onClose }) {
     },
     {
       time: "5 min",
-      description: "BREAK",
+      description: "RELAX",
       color: greenColor,
     },
     {

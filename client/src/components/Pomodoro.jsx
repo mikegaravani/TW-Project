@@ -33,7 +33,7 @@ function Pomodoro() {
 
     // TODO for testing only
     <>
-      <SPBuilder />
+      <SPPomodoro />
     </>
   );
 }

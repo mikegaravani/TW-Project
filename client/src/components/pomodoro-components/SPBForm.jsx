@@ -21,7 +21,7 @@ function SPBForm() {
 
   const handleMinutesChange = (e) => {
     let value = parseInt(e.target.value, 10);
-    if (isNaN(value)) value = 0; // Default to 0 if the input is empty or invalid
+    if (isNaN(value)) value = 0;
     if (value >= 0 && value <= 59) {
       setMinutes(value.toString());
     }
@@ -39,7 +39,9 @@ function SPBForm() {
     <>
       <div className="flex-1 lg:text-lg">
         {/* TITLE STYLES */}
-        {/* <div className="text-left text-xl font-semibold text-gray-800 mb-4"></div> */}
+        {/* <div className="text-left text-xl font-semibold text-gray-800 mb-4">
+          Settings
+        </div> */}
 
         {/* <Alert /> */}
 

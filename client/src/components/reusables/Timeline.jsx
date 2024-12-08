@@ -11,7 +11,7 @@ function Timeline({ items }) {
               style={{ backgroundColor: item.color }}
             ></div>
             <div className="ml-8">
-              <p className="text-sm text-gray-500">{item.time}</p>
+              <p className="text-sm text-start text-gray-500">{item.time}</p>
               <p className="mt-1 text-base font-medium text-gray-800">
                 {item.description}
               </p>

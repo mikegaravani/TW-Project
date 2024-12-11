@@ -61,6 +61,18 @@ export function sessionCrafter(hours, minutes, intensity, longCycles) {
   let fullCycles = Math.floor(totalMinutes / cycleLength);
   let extraMinutes = totalMinutes % cycleLength;
   let finalRelaxNotIncludedInExtraMinutes = false;
+
+  // TODO remove logs
+  console.log(
+    `Pre algorithm stats:
+    Total time: ${totalMinutes}
+    Full cycles: ${fullCycles}
+    Extra minutes: ${extraMinutes}
+    Relax 1 length: ${relaxMinutes}
+    Focus 1 length: ${focusMinutes}
+    Intensity percentage: ${intensityPercentage}`
+  );
+
   if (extraMinutes >= focusMinutes) {
     fullCycles++;
     extraMinutes -= focusMinutes;
@@ -70,6 +82,17 @@ export function sessionCrafter(hours, minutes, intensity, longCycles) {
     extraMinutes += relaxMinutes;
   }
 
+  console.log(
+    `Pre algorithm stats 2:
+    Total time: ${totalMinutes}
+    Full cycles: ${fullCycles}
+    Cycles have increased: ${finalRelaxNotIncludedInExtraMinutes}
+    Extra minutes: ${extraMinutes}
+    Relax 1 length: ${relaxMinutes}
+    Focus 1 length: ${focusMinutes}
+    Intensity percentage: ${intensityPercentage}`
+  );
+
   let sessionArray = [];
 
   for (let i = 0; i < fullCycles; i++) {
@@ -78,6 +101,11 @@ export function sessionCrafter(hours, minutes, intensity, longCycles) {
       sessionArray.push(relaxMinutes);
     }
   }
+
+  console.log(
+    `Sessionarray initalized: ${sessionArray}
+    extra time: ${extraMinutes}`
+  );
 
   // Check extraMinutes ratio of focus/break time
   let extraRelaxMinutes;
@@ -89,6 +117,12 @@ export function sessionCrafter(hours, minutes, intensity, longCycles) {
       Math.round((extraMinutes - relaxMinutes) * (intensityPercentage / 100));
   }
   let extraFocusMinutes = extraMinutes - extraRelaxMinutes;
+
+  console.log(
+    `Extra focus and relax minutes to add to cycles:
+    extra focus: ${extraFocusMinutes}
+    extra relax: ${extraRelaxMinutes}`
+  );
 
   // ----------------------------------------------
 
@@ -183,4 +217,4 @@ function generateCurrentCycleSequence(fullCycles) {
   return sequence;
 }
 
-console.log(sessionCrafter(0, 25, 2, false));
+console.log(sessionCrafter(2, 13, 2, false));

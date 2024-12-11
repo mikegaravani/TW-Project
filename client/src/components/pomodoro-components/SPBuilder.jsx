@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import arrowBack from "../../assets/arrow-back.png";
 import SPBForm from "./SPBForm";
 import SPPopup from "./SPPopup";
+import "./sessionCrafter";
 
 function SPBuilder() {
   const [isPopupVisible, setPopupVisible] = React.useState(false);

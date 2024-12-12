@@ -22,7 +22,7 @@ const INTENSITY_INTENSE_PERCENTAGE = 10;
 
 // Example 1:
 
-// sessionCrafter(1, 0, 3, true) ->
+// sessionCrafter(1, 0, 3, false) ->
 // [
 //   { time: "25 min", description: "FOCUS", color: blueColor },
 //   { time: "5 min", description: "RELAX", color: greenColor },
@@ -43,10 +43,9 @@ const INTENSITY_INTENSE_PERCENTAGE = 10;
 // ];
 
 export function sessionCrafter(hours, minutes, intensity, longCycles) {
-  // TODO edge case for short one cycle sessions
+  const totalMinutes = hours * 60 + minutes;
   // TODO "randomize" cycleLength in short/long range
   const cycleLength = longCycles ? LONG_CYCLE_MINUTES : SHORT_CYCLE_MINUTES;
-  const totalMinutes = hours * 60 + minutes;
   const intensityMapping = {
     1: INTENSITY_CHILL_PERCENTAGE,
     2: INTENSITY_MEDIUM_PERCENTAGE,
@@ -93,6 +92,23 @@ export function sessionCrafter(hours, minutes, intensity, longCycles) {
     Intensity percentage: ${intensityPercentage}`
   );
 
+  if (fullCycles < 2) {
+    if (fullCycles == 1 && extraMinutes - relaxMinutes >= focusMinutes / 2) {
+      console.log("Extra minutes are enough for a full cycle");
+      const middleRelaxMinutes =
+        relaxMinutes + relaxMinutes * (intensityPercentage / 100);
+      return [
+        Math.round(focusMinutes),
+        Math.round(middleRelaxMinutes),
+        Math.round(totalMinutes - focusMinutes - middleRelaxMinutes),
+      ];
+    }
+    // TODO DISPLAY WARNING MESSAGE IN UI FOR THIS !!!!!!!
+    else {
+      return [Math.round(totalMinutes * (1 - intensityPercentage / 100))];
+    }
+  }
+
   let sessionArray = [];
 
   for (let i = 0; i < fullCycles; i++) {
@@ -124,8 +140,6 @@ export function sessionCrafter(hours, minutes, intensity, longCycles) {
     extra relax: ${extraRelaxMinutes}`
   );
 
-  // ----------------------------------------------
-
   const FOCUS_MINUTES_TO_ADD_PER_CYCLE = 5;
   const RELAX_MINUTES_TO_ADD_PER_CYCLE = 3;
 
@@ -156,6 +170,12 @@ export function sessionCrafter(hours, minutes, intensity, longCycles) {
       extraRelaxMinutes = 0;
     }
 
+    console.log(
+      `Added extra minutes to cycle ${currentCycleToIncrease}:
+      extra focus left: ${extraFocusMinutes}
+      extra relax left: ${extraRelaxMinutes}`
+    );
+
     iter++;
     if (iter === cycleSequence.length) {
       iter = 0;
@@ -163,34 +183,6 @@ export function sessionCrafter(hours, minutes, intensity, longCycles) {
   }
 
   return sessionArray;
-
-  // // TODO CHANGE THIS and handle short session case above ^^
-  // if (totalMinutes <= 30) {
-  //   // If the session is 30 minutes or less, return a single focus session
-  //   return convertResult(totalMinutes);
-  // }
-}
-
-// Converts the array of time sequences into a more verbose format
-
-// Example: convertResult([25, 5, 30]) ->
-// [
-//   { time: "25 min", description: "FOCUS", color: blueColor },
-//   { time: "5 min", description: "RELAX", color: greenColor },
-//   { time: "30 min", description: "FOCUS", color: blueColor },
-// ];
-
-function convertResult(arr) {
-  if (!Array.isArray(arr)) {
-    arr = [arr];
-  }
-  return arr.map((time, index) => {
-    if (index % 2 === 0) {
-      return { time: `${time} min`, description: "FOCUS", color: blueColor };
-    } else {
-      return { time: `${time} min`, description: "RELAX", color: greenColor };
-    }
-  });
 }
 
 function generateCurrentCycleSequence(fullCycles) {
@@ -217,4 +209,28 @@ function generateCurrentCycleSequence(fullCycles) {
   return sequence;
 }
 
-console.log(sessionCrafter(2, 13, 2, false));
+// DISCARDED FUNCTION (maybe only temporarily)
+
+// Converts the array of time sequences into a more verbose format
+
+// Example: convertResult([25, 5, 30]) ->
+// [
+//   { time: "25 min", description: "FOCUS", color: blueColor },
+//   { time: "5 min", description: "RELAX", color: greenColor },
+//   { time: "30 min", description: "FOCUS", color: blueColor },
+// ];
+function convertResult(arr) {
+  if (!Array.isArray(arr)) {
+    arr = [arr];
+  }
+  return arr.map((time, index) => {
+    if (index % 2 === 0) {
+      return { time: `${time} min`, description: "FOCUS", color: blueColor };
+    } else {
+      return { time: `${time} min`, description: "RELAX", color: greenColor };
+    }
+  });
+}
+
+// TODO evenyually remove this
+console.log(sessionCrafter(0, 9, 2, false));

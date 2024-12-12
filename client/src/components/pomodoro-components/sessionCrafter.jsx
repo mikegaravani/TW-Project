@@ -1,3 +1,5 @@
+// TODO remove all logs
+
 // Function that creates the pomodoro session
 
 const blueColor = "#007bff";
@@ -5,12 +7,14 @@ const greenColor = "#28a745";
 
 const SHORT_CYCLE_MINUTES = 35;
 const LONG_CYCLE_MINUTES = 60;
+const SHORT_CYCLE_MINUTES_STD_DEV = 8;
+const LONG_CYCLE_MINUTES_STD_DEV = 16;
 
 const INTENSITY_CHILL_PERCENTAGE = 23;
 const INTENSITY_MEDIUM_PERCENTAGE = 17;
 const INTENSITY_INTENSE_PERCENTAGE = 10;
 
-// TODO - ASYNC AWAIT add
+// TODO - ASYNC AWAIT add (?)
 
 // Inputs: session length (hours and minutes), session intensity, cycle length (short or long)
 // hours -> int (0-23)
@@ -46,6 +50,7 @@ export function sessionCrafter(hours, minutes, intensity, longCycles) {
   const totalMinutes = hours * 60 + minutes;
   // TODO "randomize" cycleLength in short/long range
   const cycleLength = longCycles ? LONG_CYCLE_MINUTES : SHORT_CYCLE_MINUTES;
+
   const intensityMapping = {
     1: INTENSITY_CHILL_PERCENTAGE,
     2: INTENSITY_MEDIUM_PERCENTAGE,
@@ -232,5 +237,54 @@ function convertResult(arr) {
   });
 }
 
+export function mapToGaussianRange(input, preGaussianCycleLength) {
+  const minInput = 15;
+  const maxInput = 720;
+
+  // Purposefully not using (720 - 15) / 2 + 15 as the midpoint
+  const midpoint = 100;
+
+  const clampedInput = Math.max(minInput, Math.min(maxInput, input));
+  const stdDev =
+    preGaussianCycleLength === SHORT_CYCLE_MINUTES
+      ? SHORT_CYCLE_MINUTES_STD_DEV
+      : LONG_CYCLE_MINUTES_STD_DEV;
+  if (clampedInput <= midpoint) {
+    // Lower half: [15, 367.5]
+    const t = (clampedInput - minInput) / (midpoint - minInput);
+    const easedT = smootherstep(t);
+    const lowBound = preGaussianCycleLength - stdDev;
+    const highBound = preGaussianCycleLength;
+    return Math.round((1 - easedT) * lowBound + easedT * highBound);
+  } else {
+    // Upper half: [367.5, 720]
+    const t = (clampedInput - midpoint) / (maxInput - midpoint);
+    const easedT = smootherstep(t);
+    const lowBound = preGaussianCycleLength;
+    const highBound = preGaussianCycleLength + stdDev;
+    return Math.round((1 - easedT) * lowBound + easedT * highBound);
+  }
+}
+
+function smootherstep(t) {
+  return t * t * t * (t * (t * 6 - 15) + 10);
+}
+
 // TODO evenyually remove this
-console.log(sessionCrafter(0, 9, 2, false));
+// console.log(
+//   `12: ${mapToGaussianRange(12, SHORT_CYCLE_MINUTES)},
+//   15: ${mapToGaussianRange(15, SHORT_CYCLE_MINUTES)},
+//   18: ${mapToGaussianRange(18, SHORT_CYCLE_MINUTES)},
+//   50: ${mapToGaussianRange(50, SHORT_CYCLE_MINUTES)},
+//   100: ${mapToGaussianRange(100, SHORT_CYCLE_MINUTES)},
+//   200: ${mapToGaussianRange(200, SHORT_CYCLE_MINUTES)},
+//   300: ${mapToGaussianRange(300, SHORT_CYCLE_MINUTES)},
+//   367.5: ${mapToGaussianRange(367.5, SHORT_CYCLE_MINUTES)},
+//   400: ${mapToGaussianRange(400, SHORT_CYCLE_MINUTES)},
+//   500: ${mapToGaussianRange(500, SHORT_CYCLE_MINUTES)},
+//   600: ${mapToGaussianRange(600, SHORT_CYCLE_MINUTES)},
+//   700: ${mapToGaussianRange(700, SHORT_CYCLE_MINUTES)},
+//   718: ${mapToGaussianRange(718, SHORT_CYCLE_MINUTES)},
+//   720: ${mapToGaussianRange(720, SHORT_CYCLE_MINUTES)},
+//   723: ${mapToGaussianRange(723, SHORT_CYCLE_MINUTES)}`
+// );

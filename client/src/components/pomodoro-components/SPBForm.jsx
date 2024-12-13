@@ -8,6 +8,7 @@ function SPBForm() {
   const [minutes, setMinutes] = useState("30");
 
   const [cyclesType, setCyclesType] = useState("long");
+  const [selectedIntensity, setSelectedIntensity] = useState("2");
 
   const [isBoxHidden, setIsBoxHidden] = useState(false);
 
@@ -29,6 +30,10 @@ function SPBForm() {
 
   const handleCyclesType = (type) => {
     setCyclesType(type);
+  };
+
+  const handleIntensitySelection = (intensity) => {
+    setSelectedIntensity(intensity);
   };
 
   const handleBoxHide = () => {
@@ -79,19 +84,25 @@ function SPBForm() {
             <div className="flex justify-evenly gap-3 lg:h-16 text-sm lg:text-xl">
               <button
                 type="button"
-                className="flex-1 text-white bg-blue-500 hover:bg-blue-400 focus:bg-black font-medium rounded-lg px-5 py-2.5 me-2 mb-2 focus:outline-none hover:text-white"
+                className={`flex-1 font-medium rounded-lg px-5 py-2.5 me-2 mb-2 focus:outline-none hover:text-white 
+                  ${selectedIntensity === "1" ? "bg-black text-white" : "bg-blue-500 hover:bg-blue-400 text-white"}`}
+                onClick={() => handleIntensitySelection("1")}
               >
                 CHILL
               </button>
               <button
                 type="button"
-                className="flex-1 text-white bg-blue-500 hover:bg-blue-400 focus:bg-black font-medium rounded-lg px-5 py-2.5 me-2 mb-2 focus:outline-none hover:text-white"
+                className={`flex-1 font-medium rounded-lg px-5 py-2.5 me-2 mb-2 focus:outline-none hover:text-white
+                  ${selectedIntensity === "2" ? "bg-black text-white" : "bg-blue-500 hover:bg-blue-400 text-white"}`}
+                onClick={() => handleIntensitySelection("2")}
               >
                 MEDIUM
               </button>
               <button
                 type="button"
-                className="flex-1 text-white bg-blue-500 hover:bg-blue-400 focus:bg-black font-medium rounded-lg px-5 py-2.5 me-0 mb-2 focus:outline-none hover:text-white"
+                className={`flex-1 font-medium rounded-lg px-5 py-2.5 me-0 mb-2 focus:outline-none hover:text-white
+                  ${selectedIntensity === "3" ? "bg-black text-white" : "bg-blue-500 hover:bg-blue-400 text-white"}`}
+                onClick={() => handleIntensitySelection("3")}
               >
                 INTENSE
               </button>
@@ -115,8 +126,8 @@ function SPBForm() {
               <p className={`text-sm ${isBoxHidden ? "hidden" : ""}`}>
                 You can choose the ratio of relax time to focus time. By
                 default, the <span className="font-semibold">CHILL</span>{" "}
-                session has 20% relax, the{" "}
-                <span className="font-semibold">MEDIUM</span> has 15%, and if
+                session has 23% relax, the{" "}
+                <span className="font-semibold">MEDIUM</span> has 17%, and if
                 you're really feeling it, the{" "}
                 <span className="font-semibold">INTENSE</span> has only 10%
                 relax time.

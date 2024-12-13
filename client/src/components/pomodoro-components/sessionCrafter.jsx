@@ -48,8 +48,13 @@ const INTENSITY_INTENSE_PERCENTAGE = 10;
 
 export function sessionCrafter(hours, minutes, intensity, longCycles) {
   const totalMinutes = hours * 60 + minutes;
-  // TODO "randomize" cycleLength in short/long range
-  const cycleLength = longCycles ? LONG_CYCLE_MINUTES : SHORT_CYCLE_MINUTES;
+  const baseCycleLength = longCycles ? LONG_CYCLE_MINUTES : SHORT_CYCLE_MINUTES;
+
+  let cycleLength = mapToGaussianRange(totalMinutes, baseCycleLength);
+
+  if (baseCycleLength === LONG_CYCLE_MINUTES && totalMinutes < 90) {
+    cycleLength = Math.round(cycleLength / 1.5);
+  }
 
   const intensityMapping = {
     1: INTENSITY_CHILL_PERCENTAGE,
@@ -99,7 +104,6 @@ export function sessionCrafter(hours, minutes, intensity, longCycles) {
 
   if (fullCycles < 2) {
     if (fullCycles == 1 && extraMinutes - relaxMinutes >= focusMinutes / 2) {
-      console.log("Extra minutes are enough for a full cycle");
       const middleRelaxMinutes =
         relaxMinutes + relaxMinutes * (intensityPercentage / 100);
       return [
@@ -187,7 +191,7 @@ export function sessionCrafter(hours, minutes, intensity, longCycles) {
     }
   }
 
-  return sessionArray;
+  return convertResult(sessionArray);
 }
 
 function generateCurrentCycleSequence(fullCycles) {
@@ -214,8 +218,6 @@ function generateCurrentCycleSequence(fullCycles) {
   return sequence;
 }
 
-// DISCARDED FUNCTION (maybe only temporarily)
-
 // Converts the array of time sequences into a more verbose format
 
 // Example: convertResult([25, 5, 30]) ->
@@ -237,7 +239,7 @@ function convertResult(arr) {
   });
 }
 
-export function mapToGaussianRange(input, preGaussianCycleLength) {
+function mapToGaussianRange(input, preGaussianCycleLength) {
   const minInput = 15;
   const maxInput = 720;
 
@@ -269,22 +271,3 @@ export function mapToGaussianRange(input, preGaussianCycleLength) {
 function smootherstep(t) {
   return t * t * t * (t * (t * 6 - 15) + 10);
 }
-
-// TODO evenyually remove this
-// console.log(
-//   `12: ${mapToGaussianRange(12, SHORT_CYCLE_MINUTES)},
-//   15: ${mapToGaussianRange(15, SHORT_CYCLE_MINUTES)},
-//   18: ${mapToGaussianRange(18, SHORT_CYCLE_MINUTES)},
-//   50: ${mapToGaussianRange(50, SHORT_CYCLE_MINUTES)},
-//   100: ${mapToGaussianRange(100, SHORT_CYCLE_MINUTES)},
-//   200: ${mapToGaussianRange(200, SHORT_CYCLE_MINUTES)},
-//   300: ${mapToGaussianRange(300, SHORT_CYCLE_MINUTES)},
-//   367.5: ${mapToGaussianRange(367.5, SHORT_CYCLE_MINUTES)},
-//   400: ${mapToGaussianRange(400, SHORT_CYCLE_MINUTES)},
-//   500: ${mapToGaussianRange(500, SHORT_CYCLE_MINUTES)},
-//   600: ${mapToGaussianRange(600, SHORT_CYCLE_MINUTES)},
-//   700: ${mapToGaussianRange(700, SHORT_CYCLE_MINUTES)},
-//   718: ${mapToGaussianRange(718, SHORT_CYCLE_MINUTES)},
-//   720: ${mapToGaussianRange(720, SHORT_CYCLE_MINUTES)},
-//   723: ${mapToGaussianRange(723, SHORT_CYCLE_MINUTES)}`
-// );

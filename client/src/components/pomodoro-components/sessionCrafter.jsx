@@ -106,15 +106,17 @@ export function sessionCrafter(hours, minutes, intensity, longCycles) {
     if (fullCycles == 1 && extraMinutes - relaxMinutes >= focusMinutes / 2) {
       const middleRelaxMinutes =
         relaxMinutes + relaxMinutes * (intensityPercentage / 100);
-      return [
+      return convertResult([
         Math.round(focusMinutes),
         Math.round(middleRelaxMinutes),
         Math.round(totalMinutes - focusMinutes - middleRelaxMinutes),
-      ];
+      ]);
     }
     // TODO DISPLAY WARNING MESSAGE IN UI FOR THIS !!!!!!!
     else {
-      return [Math.round(totalMinutes * (1 - intensityPercentage / 100))];
+      return convertResult([
+        Math.round(totalMinutes * (1 - intensityPercentage / 100)),
+      ]);
     }
   }
 

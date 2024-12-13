@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Alert from "../reusables/Alert";
 import xButton from "../../assets/x-button.png";
 import hideIcon from "../../assets/minus-sign.png";
 
-function SPBForm() {
+function SPBForm({ onChange = () => {} }) {
   const [hours, setHours] = useState("2");
   const [minutes, setMinutes] = useState("30");
 
@@ -17,6 +17,12 @@ function SPBForm() {
     if (isNaN(value)) value = 0;
     if (value >= 0 && value <= 23) {
       setHours(value.toString());
+      onChange({
+        hours: value,
+        minutes: parseInt(minutes, 10),
+        intensity: selectedIntensity,
+        cyclesType,
+      });
     }
   };
 
@@ -25,15 +31,33 @@ function SPBForm() {
     if (isNaN(value)) value = 0;
     if (value >= 0 && value <= 59) {
       setMinutes(value.toString());
+      onChange({
+        hours: parseInt(hours, 10),
+        minutes: value,
+        intensity: selectedIntensity,
+        cyclesType,
+      });
     }
   };
 
   const handleCyclesType = (type) => {
     setCyclesType(type);
+    onChange({
+      hours: parseInt(hours, 10),
+      minutes: parseInt(minutes, 10),
+      intensity: selectedIntensity,
+      cyclesType: type,
+    });
   };
 
   const handleIntensitySelection = (intensity) => {
     setSelectedIntensity(intensity);
+    onChange({
+      hours: parseInt(hours, 10),
+      minutes: parseInt(minutes, 10),
+      intensity: intensity,
+      cyclesType,
+    });
   };
 
   const handleBoxHide = () => {

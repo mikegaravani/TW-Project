@@ -1,11 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import arrowBack from "../../assets/arrow-back.png";
 import SPBForm from "./SPBForm";
 import SPPopup from "./SPPopup";
 import "./sessionCrafter";
 
 function SPBuilder() {
-  const [isPopupVisible, setPopupVisible] = React.useState(false);
+  const [isPopupVisible, setPopupVisible] = useState(false);
+
+  const [sessionData, setSessionData] = useState({
+    hours: 2,
+    minutes: 30,
+    intensity: "2",
+    cyclesType: "long",
+  });
+
+  const handleFormChange = useCallback((newData) => {
+    setSessionData(newData);
+  }, []);
 
   const handleStart = () => {
     setPopupVisible(true);
@@ -28,13 +39,13 @@ function SPBuilder() {
             Back
           </span>
         </button>
-        <header className="text-start inline-block text-3xl text-gray-800 my-5 font-bold font-sans shadow-sm transition-transform duration-300 whitespace-nowrap">
-          <h1 className="text-3xl lg:text-5xl font-bold">BUILD YOUR SESSION</h1>
+        <header className="text-start inline-block text-3xl text-gray-800 my-5 lg:mt-2 font-bold font-sans shadow-sm transition-transform duration-300 whitespace-nowrap">
+          <h1 className="text-3xl lg:text-4xl font-bold">BUILD YOUR SESSION</h1>
         </header>
 
         <main className="flex flex-col justify-center items-stretch gap-8 mt-4 px-4 lg:px-16 w-full max-w-3xl">
           <div className="bg-white shadow-lg rounded-lg p-6 flex-1">
-            <SPBForm />
+            <SPBForm onChange={handleFormChange} />
           </div>
           <button
             onClick={handleStart}
@@ -46,7 +57,9 @@ function SPBuilder() {
       </div>
 
       {/* SESSION CONFIRMATION POPUP */}
-      {isPopupVisible && <SPPopup onClose={handleClosePopup} />}
+      {isPopupVisible && (
+        <SPPopup onClose={handleClosePopup} sessionData={sessionData} />
+      )}
     </>
   );
 }

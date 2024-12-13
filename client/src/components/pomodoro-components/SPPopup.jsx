@@ -1,29 +1,17 @@
 import React from "react";
 import xButton from "../../assets/x-button.png";
 import Timeline from "../reusables/Timeline";
+import "./sessionCrafter";
+import { sessionCrafter } from "./sessionCrafter";
 
-const blueColor = "#007bff";
-const greenColor = "#28a745";
-
-function SPPopup({ onClose }) {
-  // TODO REMOVE TEMPORARY DATA
-  const timelineItems = [
-    {
-      time: "35 min",
-      description: "FOCUS",
-      color: blueColor,
-    },
-    {
-      time: "5 min",
-      description: "RELAX",
-      color: greenColor,
-    },
-    {
-      time: "40 min",
-      description: "FOCUS",
-      color: blueColor,
-    },
-  ];
+function SPPopup({ onClose, sessionData }) {
+  const { hours, minutes, intensity, cyclesType } = sessionData;
+  const timelineItems = sessionCrafter(
+    hours,
+    minutes,
+    intensity,
+    cyclesType === "long" ? true : false
+  );
 
   return (
     <div className="flex overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">

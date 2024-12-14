@@ -25,20 +25,26 @@ function Pomodoro() {
     setCurrentPage("sPBuilder");
   };
 
+  const handleSPStart = () => {
+    setCurrentPage("sPPomodoro");
+  };
+
   return (
-    // <>
-    //   {currentPage === "entryPage" && (
-    //     <EntryPage onStart={handleStart} onSPClick={handleSPClick} />
-    //   )}
-    //   {currentPage === "basicPomodoro" && <BasicPomodoro />}
-    //   {currentPage === "sPBuilder" && <SPBuilder />}
-    //   {currentPage === "sPPomodoro" && <SPPomodoro />}
-    // </>
+    <>
+      {currentPage === "entryPage" && (
+        <EntryPage onStart={handleStart} onSPClick={handleSPClick} />
+      )}
+      {currentPage === "basicPomodoro" && <BasicPomodoro />}
+      {currentPage === "sPBuilder" && (
+        <SPBuilder onStartSession={handleSPStart} />
+      )}
+      {currentPage === "sPPomodoro" && <SPPomodoro />}
+    </>
 
     // TODO for testing only
-    <>
-      <SPBuilder />
-    </>
+    // <>
+    //   <SPBuilder onStartSession={handleSPStart} />
+    // </>
   );
 }
 

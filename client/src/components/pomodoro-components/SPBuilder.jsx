@@ -4,7 +4,7 @@ import SPBForm from "./SPBForm";
 import SPPopup from "./SPPopup";
 import "./sessionCrafter";
 
-function SPBuilder() {
+function SPBuilder({ onStartSession }) {
   const [isPopupVisible, setPopupVisible] = useState(false);
 
   const [sessionData, setSessionData] = useState({
@@ -58,7 +58,11 @@ function SPBuilder() {
 
       {/* SESSION CONFIRMATION POPUP */}
       {isPopupVisible && (
-        <SPPopup onClose={handleClosePopup} sessionData={sessionData} />
+        <SPPopup
+          onClose={handleClosePopup}
+          sessionData={sessionData}
+          onStartSession={onStartSession}
+        />
       )}
     </>
   );

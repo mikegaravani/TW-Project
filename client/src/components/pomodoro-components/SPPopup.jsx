@@ -4,7 +4,7 @@ import Timeline from "../reusables/Timeline";
 import "./sessionCrafter";
 import { sessionCrafter } from "./sessionCrafter";
 
-function SPPopup({ onClose, sessionData }) {
+function SPPopup({ onClose, sessionData, onStartSession }) {
   const { hours, minutes, intensity, cyclesType } = sessionData;
   const timelineItems = sessionCrafter(
     hours,
@@ -40,6 +40,7 @@ function SPPopup({ onClose, sessionData }) {
             <button
               type="button"
               className="text-white hover:text-white bg-blue-500 hover:bg-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+              onClick={onStartSession}
             >
               Confirm and Start
             </button>

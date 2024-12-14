@@ -4,7 +4,7 @@ import Timeline from "../reusables/Timeline";
 import "./sessionCrafter";
 import { sessionCrafter } from "./sessionCrafter";
 
-function SPPopup({ onClose, sessionData, onStartSession }) {
+function SPPopup({ onClose, sessionData, onStartSession, onPassData }) {
   const { hours, minutes, intensity, cyclesType } = sessionData;
   const timelineItems = sessionCrafter(
     hours,
@@ -12,6 +12,13 @@ function SPPopup({ onClose, sessionData, onStartSession }) {
     intensity,
     cyclesType === "long" ? true : false
   );
+
+  const startAndPassData = () => {
+    onStartSession();
+    if (onPassData) {
+      onPassData(timelineItems);
+    }
+  };
 
   return (
     <div className="flex overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
@@ -40,7 +47,7 @@ function SPPopup({ onClose, sessionData, onStartSession }) {
             <button
               type="button"
               className="text-white hover:text-white bg-blue-500 hover:bg-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-              onClick={onStartSession}
+              onClick={startAndPassData}
             >
               Confirm and Start
             </button>

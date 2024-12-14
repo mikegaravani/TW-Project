@@ -72,15 +72,15 @@ export function sessionCrafter(hours, minutes, intensity, longCycles) {
   let finalRelaxNotIncludedInExtraMinutes = false;
 
   // TODO remove logs
-  console.log(
-    `Pre algorithm stats:
-    Total time: ${totalMinutes}
-    Full cycles: ${fullCycles}
-    Extra minutes: ${extraMinutes}
-    Relax 1 length: ${relaxMinutes}
-    Focus 1 length: ${focusMinutes}
-    Intensity percentage: ${intensityPercentage}`
-  );
+  // console.log(
+  //   `Pre algorithm stats:
+  //   Total time: ${totalMinutes}
+  //   Full cycles: ${fullCycles}
+  //   Extra minutes: ${extraMinutes}
+  //   Relax 1 length: ${relaxMinutes}
+  //   Focus 1 length: ${focusMinutes}
+  //   Intensity percentage: ${intensityPercentage}`
+  // );
 
   if (extraMinutes >= focusMinutes) {
     fullCycles++;
@@ -91,16 +91,16 @@ export function sessionCrafter(hours, minutes, intensity, longCycles) {
     extraMinutes += relaxMinutes;
   }
 
-  console.log(
-    `Pre algorithm stats 2:
-    Total time: ${totalMinutes}
-    Full cycles: ${fullCycles}
-    Cycles have increased: ${finalRelaxNotIncludedInExtraMinutes}
-    Extra minutes: ${extraMinutes}
-    Relax 1 length: ${relaxMinutes}
-    Focus 1 length: ${focusMinutes}
-    Intensity percentage: ${intensityPercentage}`
-  );
+  // console.log(
+  //   `Pre algorithm stats 2:
+  //   Total time: ${totalMinutes}
+  //   Full cycles: ${fullCycles}
+  //   Cycles have increased: ${finalRelaxNotIncludedInExtraMinutes}
+  //   Extra minutes: ${extraMinutes}
+  //   Relax 1 length: ${relaxMinutes}
+  //   Focus 1 length: ${focusMinutes}
+  //   Intensity percentage: ${intensityPercentage}`
+  // );
 
   if (fullCycles < 2) {
     if (fullCycles == 1 && extraMinutes - relaxMinutes >= focusMinutes / 2) {
@@ -129,10 +129,10 @@ export function sessionCrafter(hours, minutes, intensity, longCycles) {
     }
   }
 
-  console.log(
-    `Sessionarray initalized: ${sessionArray}
-    extra time: ${extraMinutes}`
-  );
+  // console.log(
+  //   `Sessionarray initalized: ${sessionArray}
+  //   extra time: ${extraMinutes}`
+  // );
 
   // Check extraMinutes ratio of focus/break time
   let extraRelaxMinutes;
@@ -145,11 +145,11 @@ export function sessionCrafter(hours, minutes, intensity, longCycles) {
   }
   let extraFocusMinutes = extraMinutes - extraRelaxMinutes;
 
-  console.log(
-    `Extra focus and relax minutes to add to cycles:
-    extra focus: ${extraFocusMinutes}
-    extra relax: ${extraRelaxMinutes}`
-  );
+  // console.log(
+  //   `Extra focus and relax minutes to add to cycles:
+  //   extra focus: ${extraFocusMinutes}
+  //   extra relax: ${extraRelaxMinutes}`
+  // );
 
   const FOCUS_MINUTES_TO_ADD_PER_CYCLE = 5;
   const RELAX_MINUTES_TO_ADD_PER_CYCLE = 3;
@@ -181,11 +181,11 @@ export function sessionCrafter(hours, minutes, intensity, longCycles) {
       extraRelaxMinutes = 0;
     }
 
-    console.log(
-      `Added extra minutes to cycle ${currentCycleToIncrease}:
-      extra focus left: ${extraFocusMinutes}
-      extra relax left: ${extraRelaxMinutes}`
-    );
+    // console.log(
+    //   `Added extra minutes to cycle ${currentCycleToIncrease}:
+    //   extra focus left: ${extraFocusMinutes}
+    //   extra relax left: ${extraRelaxMinutes}`
+    // );
 
     iter++;
     if (iter === cycleSequence.length) {

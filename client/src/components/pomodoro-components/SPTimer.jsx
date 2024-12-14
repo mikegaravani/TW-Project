@@ -12,6 +12,7 @@ function PomodoroTimer({
   initialFocusTime = 30 * 60,
   initialRelaxTime = 5 * 60,
   onStateChange,
+  timelineData = [],
 }) {
   const [isFocus, setIsFocus] = useState(true);
   const [timeLeft, setTimeLeft] = useState(initialFocusTime);

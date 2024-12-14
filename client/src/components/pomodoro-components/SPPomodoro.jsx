@@ -5,7 +5,7 @@ import SPTimer from "./SPTimer";
 import SPProgress from "./SPProgress";
 import arrowBack from "../../assets/arrow-back.png";
 
-function SPPomodoro() {
+function SPPomodoro({ timelineData }) {
   const [currentMode, setCurrentMode] = useState("focus");
 
   const handleStateChange = (mode) => {
@@ -36,13 +36,34 @@ function SPPomodoro() {
             } text-center`}
           >
             <div className="mt-5">
-              <SPTimer onStateChange={handleStateChange} />
+              <SPTimer
+                onStateChange={handleStateChange}
+                timelineData={[
+                  ...timelineData,
+                  // Adding "THE END" item to the end of the timeline
+                  {
+                    time: "You did it!",
+                    description: "THE END",
+                    color: "#7600bc",
+                  },
+                ]}
+              />
             </div>
           </div>
 
           {/* New Tab Section */}
           <div className="bg-gray-100 p-5 rounded-lg shadow-md w-full lg:w-1/4 mt-4 mb-0 lg:mt-0 lg:max-h-[500px] lg:overflow-y-scroll">
-            <SPProgress />
+            <SPProgress
+              timelineData={[
+                ...timelineData,
+                // Adding "THE END" item to the end of the timeline
+                {
+                  time: "You did it!",
+                  description: "THE END",
+                  color: "#7600bc",
+                },
+              ]}
+            />
           </div>
         </div>
       </div>

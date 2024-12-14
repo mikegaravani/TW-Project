@@ -33,7 +33,6 @@ function Pomodoro() {
 
   const handleTimelineData = (data) => {
     setTimelineData(data);
-    console.log("wasgood", data);
   };
 
   return (
@@ -48,7 +47,9 @@ function Pomodoro() {
           onPassData={handleTimelineData}
         />
       )}
-      {currentPage === "sPPomodoro" && <SPPomodoro />}
+      {currentPage === "sPPomodoro" && (
+        <SPPomodoro timelineData={timelineData} />
+      )}
     </>
 
     // TODO for testing only

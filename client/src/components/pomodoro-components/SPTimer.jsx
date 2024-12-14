@@ -8,7 +8,23 @@ import settingsIcon from "../../assets/settings.png";
 import restartIcon from "../../assets/restart.png";
 import jumpIcon from "../../assets/jump.png";
 
+// TODO remove these
+const blueColor = "#007bff";
+const greenColor = "#28a745";
+
 function SPTimer({ onStateChange, timelineData = [] }) {
+  // TODO remove this mock data
+  timelineData = [
+    { time: "1 min", description: "FOCUS", color: blueColor },
+    { time: "1 min", description: "RELAX", color: greenColor },
+    { time: "1 min", description: "FOCUS", color: blueColor },
+    {
+      time: "You did it!",
+      description: "THE END",
+      color: "#7600bc",
+    },
+  ];
+
   const getTimeFromStep = (index) => {
     const step = timelineData[index];
     if (!step) return 0;
@@ -41,6 +57,20 @@ function SPTimer({ onStateChange, timelineData = [] }) {
 
   const toggleTimer = () => setIsRunning(!isRunning);
 
+  const addMinutes = () => {
+    setTimeLeft((prev) => prev + 2 * 60);
+  };
+
+  const restartTimer = () => {
+    setTimeLeft(getTimeFromStep(currentStepIndex));
+    setIsRunning(false);
+  };
+
+  const jumpToNextStep = () => {
+    switchToNextStep();
+    setIsRunning(false);
+  };
+
   useEffect(() => {
     let timer;
     if (isRunning && timeLeft > 0) {
@@ -56,7 +86,10 @@ function SPTimer({ onStateChange, timelineData = [] }) {
     <>
       <div className={`text-center p-5 rounded-lg bg-gray-100 font-sans`}>
         {/* TODO this down here color text is wrong */}
-        <h4 className={`text-4xl font-bold mb-2.5 text-green-500`}>
+        <h4
+          className="text-4xl font-bold mb-2.5"
+          style={{ color: timelineData[currentStepIndex]?.color }}
+        >
           {timelineData[currentStepIndex]?.description || "FINISHED"}
         </h4>
 
@@ -78,18 +111,21 @@ function SPTimer({ onStateChange, timelineData = [] }) {
           <button
             className="w-[50px] h-[50px] flex items-center justify-center p-2.5 px-5 text-base text-white bg-transparent border-none rounded-md cursor-pointer transition-colors duration-300 bg-no-repeat bg-center bg-65% hover:bg-gray-300 hover:text-white"
             style={{ backgroundImage: `url(${addTimeIcon})` }}
+            onClick={addMinutes}
           ></button>
 
           {/* RESTART BUTTON */}
           <button
             className="w-[50px] h-[50px] flex items-center justify-center p-2.5 px-5 text-base text-white bg-transparent border-none rounded-md cursor-pointer transition-colors duration-300 bg-no-repeat bg-center bg-83% hover:bg-gray-300 hover:text-white"
             style={{ backgroundImage: `url(${restartIcon})` }}
+            onClick={restartTimer}
           ></button>
 
           {/* JUMP BUTTON */}
           <button
             className="w-[50px] h-[50px] flex items-center justify-center p-2.5 px-5 text-base text-white bg-transparent border-none rounded-md cursor-pointer transition-colors duration-300 bg-no-repeat bg-center bg-60% hover:bg-gray-300 hover:text-white"
             style={{ backgroundImage: `url(${jumpIcon})` }}
+            onClick={jumpToNextStep}
           ></button>
 
           {/* SETTINGS BUTTON */}
@@ -97,12 +133,6 @@ function SPTimer({ onStateChange, timelineData = [] }) {
             className="w-[50px] h-[50px] flex items-center justify-center p-2.5 px-5 text-base text-white bg-transparent border-none rounded-md cursor-pointer transition-colors duration-300 bg-no-repeat bg-center bg-66% hover:bg-gray-300 hover:text-white"
             style={{ backgroundImage: `url(${settingsIcon})` }}
           ></button>
-        </div>
-
-        <div className="text-gray-600 text-center">
-          <h3 className="text-lg font-semibold mt-5 shadow-sm">
-            Next up: minutes of
-          </h3>
         </div>
       </div>
     </>

@@ -9,6 +9,8 @@ import settingsIcon from "../../assets/settings.png";
 import restartIcon from "../../assets/restart.png";
 import jumpIcon from "../../assets/jump.png";
 
+// TODO fix "saveSettings" bug where time goes back to default
+
 function PomodoroTimer({
   initialFocusTime = 30 * 60,
   initialRelaxTime = 5 * 60,

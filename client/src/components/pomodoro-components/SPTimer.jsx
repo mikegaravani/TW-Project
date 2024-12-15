@@ -14,16 +14,16 @@ const greenColor = "#28a745";
 
 function SPTimer({ onStateChange, timelineData = [] }) {
   // TODO remove this mock data
-  timelineData = [
-    { time: "1 min", description: "FOCUS", color: blueColor },
-    { time: "1 min", description: "RELAX", color: greenColor },
-    { time: "1 min", description: "FOCUS", color: blueColor },
-    {
-      time: "You did it!",
-      description: "THE END",
-      color: "#7600bc",
-    },
-  ];
+  // timelineData = [
+  //   { time: "1 min", description: "FOCUS", color: blueColor },
+  //   { time: "1 min", description: "RELAX", color: greenColor },
+  //   { time: "1 min", description: "FOCUS", color: blueColor },
+  //   {
+  //     time: "You did it!",
+  //     description: "THE END",
+  //     color: "#7600bc",
+  //   },
+  // ];
 
   const getTimeFromStep = (index) => {
     const step = timelineData[index];
@@ -35,6 +35,13 @@ function SPTimer({ onStateChange, timelineData = [] }) {
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
   const [timeLeft, setTimeLeft] = useState(getTimeFromStep(0));
   const [isRunning, setIsRunning] = useState(false);
+
+  const [minutesToAdd, setMinutesToAdd] = useState(2);
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+
+  const [settingsSnapshot, setSettingsSnapshot] = useState({
+    minutesToAdd,
+  });
 
   const switchToNextStep = () => {
     const nextIndex = currentStepIndex + 1;
@@ -58,7 +65,7 @@ function SPTimer({ onStateChange, timelineData = [] }) {
   const toggleTimer = () => setIsRunning(!isRunning);
 
   const addMinutes = () => {
-    setTimeLeft((prev) => prev + 2 * 60);
+    setTimeLeft((prev) => prev + minutesToAdd * 60);
   };
 
   const restartTimer = () => {
@@ -69,6 +76,31 @@ function SPTimer({ onStateChange, timelineData = [] }) {
   const jumpToNextStep = () => {
     switchToNextStep();
     setIsRunning(false);
+  };
+
+  const openSettings = () => {
+    setSettingsSnapshot({ minutesToAdd });
+    setIsSettingsOpen(true);
+  };
+
+  const closeSettings = () => {
+    setIsSettingsOpen(false);
+  };
+
+  const saveSettings = () => {
+    const { minutesToAdd: newMinutesToAdd } = settingsSnapshot;
+    setMinutesToAdd(newMinutesToAdd);
+    setIsSettingsOpen(false);
+  };
+
+  const handleMinutesChange = (e) => {
+    const value = e.target.value;
+    if (value === "") {
+      setMinutesToAdd("");
+    } else {
+      const numericValue = Number(value);
+      setMinutesToAdd(numericValue >= 1 ? numericValue : 1);
+    }
   };
 
   useEffect(() => {
@@ -132,8 +164,26 @@ function SPTimer({ onStateChange, timelineData = [] }) {
           <button
             className="w-[50px] h-[50px] flex items-center justify-center p-2.5 px-5 text-base text-white bg-transparent border-none rounded-md cursor-pointer transition-colors duration-300 bg-no-repeat bg-center bg-66% hover:bg-gray-300 hover:text-white"
             style={{ backgroundImage: `url(${settingsIcon})` }}
+            onClick={openSettings}
           ></button>
         </div>
+
+        <Settings
+          isOpen={isSettingsOpen}
+          onClose={closeSettings}
+          onSave={saveSettings}
+        >
+          <label className="block mb-4">
+            Minutes to Add:
+            <input
+              type="number"
+              value={minutesToAdd}
+              onChange={handleMinutesChange}
+              className="w-full border border-gray-300 rounded p-2"
+              min="1"
+            />
+          </label>
+        </Settings>
       </div>
     </>
   );

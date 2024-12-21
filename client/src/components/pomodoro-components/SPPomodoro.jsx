@@ -6,7 +6,7 @@ import SPProgress from "./SPProgress";
 import arrowBack from "../../assets/arrow-back.png";
 
 function SPPomodoro({ timelineData }) {
-  const [currentMode, setCurrentMode] = useState("focus");
+  const [currentMode, setCurrentMode] = useState("FOCUS");
 
   const handleStateChange = (mode) => {
     setCurrentMode(mode);
@@ -16,9 +16,11 @@ function SPPomodoro({ timelineData }) {
     <>
       <div
         className={`flex flex-col min-h-screen font-sans p-5 relative ${
-          currentMode === "focus"
+          currentMode === "FOCUS"
             ? "bg-gradient-to-b from-[#f7f9fc] to-[#007bff4c]"
-            : "bg-gradient-to-b from-[#f7f9fc] to-[#28a7454c]"
+            : currentMode === "RELAX"
+              ? "bg-gradient-to-b from-[#f7f9fc] to-[#28a7454c]"
+              : "bg-gradient-to-b from-[#f7f9fc] to-[#7600bc4c]"
         }`}
       >
         <div className="text-center inline-block text-3xl text-gray-800 my-3 font-bold font-sans transition-transform duration-300 whitespace-nowrap">
@@ -32,7 +34,11 @@ function SPPomodoro({ timelineData }) {
           {/* Timer Section */}
           <div
             className={`w-full lg:w-2/3 max-w-lg bg-gray-100 p-5 rounded-lg shadow-md border-8 mt-4 lg:mx-8 ${
-              currentMode === "focus" ? "border-blue-500" : "border-green-500"
+              currentMode === "FOCUS"
+                ? "border-blue-500"
+                : currentMode === "RELAX"
+                  ? "border-green-500"
+                  : "border-purple-500"
             } text-center`}
           >
             <div className="mt-5">

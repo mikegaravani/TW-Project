@@ -48,8 +48,10 @@ function SPTimer({ onStateChange, timelineData = [] }) {
     if (nextIndex < timelineData.length) {
       setCurrentStepIndex(nextIndex);
       setTimeLeft(getTimeFromStep(nextIndex));
+      onStateChange(timelineData[nextIndex].description);
     } else {
       setIsRunning(false);
+      onStateChange("THE END");
     }
   };
 
@@ -96,10 +98,13 @@ function SPTimer({ onStateChange, timelineData = [] }) {
   const handleMinutesChange = (e) => {
     const value = e.target.value;
     if (value === "") {
-      setMinutesToAdd("");
+      setSettingsSnapshot((prev) => ({ ...prev, minutesToAdd: "" }));
     } else {
       const numericValue = Number(value);
-      setMinutesToAdd(numericValue >= 1 ? numericValue : 1);
+      setSettingsSnapshot((prev) => ({
+        ...prev,
+        minutesToAdd: numericValue >= 1 ? numericValue : 1,
+      }));
     }
   };
 
@@ -177,7 +182,7 @@ function SPTimer({ onStateChange, timelineData = [] }) {
             Minutes to Add:
             <input
               type="number"
-              value={minutesToAdd}
+              value={settingsSnapshot.minutesToAdd}
               onChange={handleMinutesChange}
               className="w-full border border-gray-300 rounded p-2"
               min="1"

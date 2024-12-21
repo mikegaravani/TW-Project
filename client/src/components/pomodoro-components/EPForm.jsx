@@ -9,7 +9,14 @@ function EPForm({ onStart }) {
   const [customCycles, setCustomCycles] = useState("");
 
   const handleStartClick = () => {
-    onStart(cyclesValue);
+    onStart(
+      focusValue,
+      relaxValue,
+      cyclesValue,
+      customFocus,
+      customRelax,
+      customCycles
+    );
   };
 
   return (
@@ -92,7 +99,7 @@ function EPForm({ onStart }) {
               <option value="custom">Custom</option>
               <option value="2">2</option>
               <option value="3">3</option>
-              <option value="3">4</option>
+              <option value="4">4</option>
               <option value="5">5</option>
               <option value="6">6</option>
               <option value="7">7</option>

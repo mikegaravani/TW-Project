@@ -7,9 +7,18 @@ import arrowBack from "../../assets/arrow-back.png";
 
 function SPPomodoro({ timelineData }) {
   const [currentMode, setCurrentMode] = useState("FOCUS");
+  const [progressData, setProgressData] = useState([
+    ...timelineData.slice(1),
+    {
+      time: "You did it!",
+      description: "THE END",
+      color: "#7600bc",
+    },
+  ]);
 
   const handleStateChange = (mode) => {
     setCurrentMode(mode);
+    setProgressData([...progressData.slice(1)]);
   };
 
   return (
@@ -58,18 +67,10 @@ function SPPomodoro({ timelineData }) {
           </div>
 
           {/* New Tab Section */}
-          <div className="bg-gray-100 p-5 rounded-lg shadow-md w-full lg:w-1/4 mt-4 mb-0 lg:mt-0 lg:max-h-[500px] lg:overflow-y-scroll">
-            <SPProgress
-              timelineData={[
-                ...timelineData,
-                // Adding "THE END" item to the end of the timeline
-                {
-                  time: "You did it!",
-                  description: "THE END",
-                  color: "#7600bc",
-                },
-              ]}
-            />
+          <div
+            className={`${progressData.length === 0 ? "hidden" : ""} bg-gray-100 p-5 rounded-lg shadow-md w-full lg:w-1/4 mt-4 mb-0 lg:mt-0 lg:max-h-[500px] lg:overflow-y-scroll`}
+          >
+            <SPProgress timelineData={progressData} />
           </div>
         </div>
       </div>

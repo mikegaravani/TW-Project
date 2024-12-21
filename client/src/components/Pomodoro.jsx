@@ -3,8 +3,8 @@ import BasicPomodoro from "./pomodoro-components/BasicPomodoro";
 import SPPomodoro from "./pomodoro-components/SPPomodoro";
 import EntryPage from "./pomodoro-components/EntryPage";
 import SPBuilder from "./pomodoro-components/SPBuilder";
-import "./pomodoro-components/sessionCrafter";
 import { sessionCrafter } from "./pomodoro-components/sessionCrafter";
+import { finitePomodoroCreator } from "./pomodoro-components/finitePomodoroCreator";
 
 // CONDITIONAL RENDERING
 
@@ -15,11 +15,28 @@ function Pomodoro() {
     sessionCrafter(2, 30, 2, true),
   ]);
 
-  const handleStart = (cycles) => {
+  const handleStart = (
+    focus,
+    relax,
+    cycles,
+    customFocus,
+    customRelax,
+    customCycles
+  ) => {
     if (cycles === "infinity") {
       setCurrentPage("basicPomodoro");
     } else {
       setCurrentPage("sPPomodoro");
+      if (focus === "custom") {
+        focus = customFocus;
+      }
+      if (relax === "custom") {
+        relax = customRelax;
+      }
+      if (cycles === "custom") {
+        cycles = customCycles;
+      }
+      setTimelineData(finitePomodoroCreator(focus, relax, cycles));
     }
   };
 

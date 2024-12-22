@@ -15,27 +15,11 @@ function Pomodoro() {
     sessionCrafter(2, 30, 2, true),
   ]);
 
-  const handleStart = (
-    focus,
-    relax,
-    cycles,
-    customFocus,
-    customRelax,
-    customCycles
-  ) => {
+  const handleStart = (focus, relax, cycles) => {
     if (cycles === "infinity") {
       setCurrentPage("basicPomodoro");
     } else {
       setCurrentPage("sPPomodoro");
-      if (focus === "custom") {
-        focus = customFocus;
-      }
-      if (relax === "custom") {
-        relax = customRelax;
-      }
-      if (cycles === "custom") {
-        cycles = customCycles;
-      }
       setTimelineData(finitePomodoroCreator(focus, relax, cycles));
     }
   };

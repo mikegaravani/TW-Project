@@ -11,11 +11,7 @@ import jumpIcon from "../../assets/jump.png";
 
 // TODO fix "saveSettings" bug where time goes back to default
 
-function PomodoroTimer({
-  initialFocusTime = 30 * 60,
-  initialRelaxTime = 5 * 60,
-  onStateChange,
-}) {
+function PomodoroTimer({ initialFocusTime, initialRelaxTime, onStateChange }) {
   const [isFocus, setIsFocus] = useState(true);
   const [timeLeft, setTimeLeft] = useState(initialFocusTime);
   const [isRunning, setIsRunning] = useState(false);

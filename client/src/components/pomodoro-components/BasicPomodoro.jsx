@@ -3,7 +3,7 @@ import PomodoroTimer from "./PomodoroTimer";
 import lightbulb from "../../assets/lightbulb.png";
 import "./BasicPomodoro.css";
 
-function BasicPomodoro() {
+function BasicPomodoro({ initialFocusTime, initialRelaxTime }) {
   const [currentMode, setCurrentMode] = useState("focus");
 
   const handleStateChange = (mode) => {
@@ -41,7 +41,11 @@ function BasicPomodoro() {
             ></button>
 
             <div className="timer-container-style">
-              <PomodoroTimer onStateChange={handleStateChange} />
+              <PomodoroTimer
+                initialFocusTime={initialFocusTime}
+                initialRelaxTime={initialRelaxTime}
+                onStateChange={handleStateChange}
+              />
             </div>
           </div>
         </div>

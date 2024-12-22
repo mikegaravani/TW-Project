@@ -8,6 +8,9 @@ import { finitePomodoroCreator } from "./pomodoro-components/finitePomodoroCreat
 
 // CONDITIONAL RENDERING
 
+const INITIAL_FOCUS_TIME = 30 * 60;
+const INITIAL_RELAX_TIME = 5 * 60;
+
 function Pomodoro() {
   const [currentPage, setCurrentPage] = useState("entryPage");
 
@@ -15,8 +18,13 @@ function Pomodoro() {
     sessionCrafter(2, 30, 2, true),
   ]);
 
+  const [focusTime, setFocusTime] = useState(INITIAL_FOCUS_TIME);
+  const [relaxTime, setRelaxTime] = useState(INITIAL_RELAX_TIME);
+
   const handleStart = (focus, relax, cycles) => {
     if (cycles === "infinity") {
+      setFocusTime(focus * 60);
+      setRelaxTime(relax * 60);
       setCurrentPage("basicPomodoro");
     } else {
       setCurrentPage("sPPomodoro");
@@ -41,7 +49,12 @@ function Pomodoro() {
       {currentPage === "entryPage" && (
         <EntryPage onStart={handleStart} onSPClick={handleSPClick} />
       )}
-      {currentPage === "basicPomodoro" && <BasicPomodoro />}
+      {currentPage === "basicPomodoro" && (
+        <BasicPomodoro
+          initialFocusTime={focusTime}
+          initialRelaxTime={relaxTime}
+        />
+      )}
       {currentPage === "sPBuilder" && (
         <SPBuilder
           onStartSession={handleSPStart}

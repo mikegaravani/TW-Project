@@ -4,7 +4,7 @@ import SPBForm from "./SPBForm";
 import SPPopup from "./SPPopup";
 import "./sessionCrafter";
 
-function SPBuilder({ onStartSession, onPassData }) {
+function SPBuilder({ onStartSession, onPassData, onBack }) {
   const [isPopupVisible, setPopupVisible] = useState(false);
 
   const [sessionData, setSessionData] = useState({
@@ -29,7 +29,10 @@ function SPBuilder({ onStartSession, onPassData }) {
   return (
     <>
       <div className="bg-gray-100 min-h-screen flex flex-col items-center pb-4">
-        <button className="flex items-center gap-2 lg:gap-4 pt-4 lg:pt-8 pl-4 lg:pl-8 self-start">
+        <button
+          onClick={onBack}
+          className="flex items-center gap-2 lg:gap-4 pt-4 lg:pt-8 pl-4 lg:pl-8 self-start"
+        >
           <img
             src={arrowBack}
             alt="Back Arrow"

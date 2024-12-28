@@ -40,6 +40,10 @@ function Pomodoro() {
     setCurrentPage("sPPomodoro");
   };
 
+  const handleBackToEntry = () => {
+    setCurrentPage("entryPage");
+  };
+
   const handleTimelineData = (data) => {
     setTimelineData(data);
   };
@@ -53,12 +57,14 @@ function Pomodoro() {
         <BasicPomodoro
           initialFocusTime={focusTime}
           initialRelaxTime={relaxTime}
+          onSP={handleSPClick}
         />
       )}
       {currentPage === "sPBuilder" && (
         <SPBuilder
           onStartSession={handleSPStart}
           onPassData={handleTimelineData}
+          onBack={handleBackToEntry}
         />
       )}
       {currentPage === "sPPomodoro" && (

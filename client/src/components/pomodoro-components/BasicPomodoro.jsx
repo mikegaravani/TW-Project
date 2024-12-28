@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import PomodoroTimer from "./PomodoroTimer";
 import lightbulb from "../../assets/lightbulb.png";
 import "./BasicPomodoro.css";
+import MusicPopup from "./MusicPopup";
 
 function BasicPomodoro({ initialFocusTime, initialRelaxTime }) {
   const [currentMode, setCurrentMode] = useState("focus");
@@ -49,6 +50,8 @@ function BasicPomodoro({ initialFocusTime, initialRelaxTime }) {
             </div>
           </div>
         </div>
+
+        <MusicPopup />
       </div>
     </>
   );

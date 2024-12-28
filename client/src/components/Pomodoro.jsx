@@ -45,31 +45,34 @@ function Pomodoro() {
   };
 
   return (
-    <>
-      {currentPage === "entryPage" && (
-        <EntryPage onStart={handleStart} onSPClick={handleSPClick} />
-      )}
-      {currentPage === "basicPomodoro" && (
-        <BasicPomodoro
-          initialFocusTime={focusTime}
-          initialRelaxTime={relaxTime}
-        />
-      )}
-      {currentPage === "sPBuilder" && (
-        <SPBuilder
-          onStartSession={handleSPStart}
-          onPassData={handleTimelineData}
-        />
-      )}
-      {currentPage === "sPPomodoro" && (
-        <SPPomodoro timelineData={timelineData} />
-      )}
-    </>
+    // <>
+    //   {currentPage === "entryPage" && (
+    //     <EntryPage onStart={handleStart} onSPClick={handleSPClick} />
+    //   )}
+    //   {currentPage === "basicPomodoro" && (
+    //     <BasicPomodoro
+    //       initialFocusTime={focusTime}
+    //       initialRelaxTime={relaxTime}
+    //     />
+    //   )}
+    //   {currentPage === "sPBuilder" && (
+    //     <SPBuilder
+    //       onStartSession={handleSPStart}
+    //       onPassData={handleTimelineData}
+    //     />
+    //   )}
+    //   {currentPage === "sPPomodoro" && (
+    //     <SPPomodoro timelineData={timelineData} />
+    //   )}
+    // </>
 
     // TODO for testing only
-    // <>
-    //   <SPBuilder onStartSession={handleSPStart} />
-    // </>
+    <>
+      <BasicPomodoro
+        initialFocusTime={focusTime}
+        initialRelaxTime={relaxTime}
+      />
+    </>
   );
 }
 

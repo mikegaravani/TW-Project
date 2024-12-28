@@ -4,6 +4,7 @@ import lightbulb from "../../assets/lightbulb.png";
 import SPTimer from "./SPTimer";
 import SPProgress from "./SPProgress";
 import arrowBack from "../../assets/arrow-back.png";
+import MusicPopup from "./MusicPopup";
 
 function SPPomodoro({ timelineData }) {
   const [currentMode, setCurrentMode] = useState("FOCUS");
@@ -73,6 +74,8 @@ function SPPomodoro({ timelineData }) {
             <SPProgress timelineData={progressData} />
           </div>
         </div>
+
+        <MusicPopup />
       </div>
     </>
   );

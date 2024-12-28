@@ -197,7 +197,7 @@ function EPForm({ onStart }) {
           </div>
           <button
             onClick={handleStartClick}
-            className="bg-blue-500 text-white font-semibold py-2 rounded-lg hover:bg-blue-300"
+            className="bg-blue-500 text-white font-semibold py-2 rounded-lg hover:bg-blue-300 hover:text-white"
           >
             Start
           </button>

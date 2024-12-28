@@ -23,15 +23,13 @@ const MusicPopup = () => {
         >
           <span className="text-lg">🎵 Your music</span>
         </div>
-        {isPopupVisible && (
-          <div className="p-4">
-            <AudioPlayer
-              src={musicTrack}
-              loop="true"
-              showFilledProgress="false"
-            />
-          </div>
-        )}
+        <div className={`p-4 ${isPopupVisible ? "block" : "hidden"}`}>
+          <AudioPlayer
+            src={musicTrack}
+            loop={true}
+            showFilledProgress={false}
+          />
+        </div>
       </div>
       {!isPopupVisible && (
         <button

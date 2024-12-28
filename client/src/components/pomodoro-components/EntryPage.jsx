@@ -9,7 +9,7 @@ function EntryPage({ onStart, onSPClick }) {
         <h1 className="text-3xl font-bold">Your Pomodoro, User</h1>
       </header>
 
-      <main className="flex flex-col lg:flex-row justify-center items-stretch gap-8 mt-8 px-4 lg:px-16 w-full max-w-7xl">
+      <main className="flex flex-col lg:flex-row justify-cente items-stretch gap-8 mt-8 px-4 lg:px-16 w-full max-w-7xl">
         <div className="bg-white shadow-lg rounded-lg p-6 flex-1">
           <EPForm onStart={onStart} />
         </div>

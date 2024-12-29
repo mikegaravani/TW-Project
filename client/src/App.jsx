@@ -6,6 +6,7 @@ import HomePage from "./components/HomePage";
 import Login from "./components/Login";
 import Notes from "./components/Notes";
 import Pomodoro from "./components/Pomodoro";
+import Calendar from "./components/Calendar";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/note-editor" element={<Notes />} />
         <Route path="/pomodoro" element={<Pomodoro />} />
+        <Route path="/calendar" element={<Calendar />} />
       </Routes>
     </Router>
   );

@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import moment from "moment";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 function NewEventForm({ onClose }) {
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+  const [isAllDay, setIsAllDay] = useState(false);
+
   return (
     <>
       {/* Backdrop */}
@@ -26,7 +32,7 @@ function NewEventForm({ onClose }) {
             <div className="mb-4 border border-gray-300 rounded shadow-sm focus-within:ring-2 focus-within:ring-blue-500">
               <input
                 type="text"
-                className="text-lg w-full px-4 pt-2 pb-0 border-none rounded-t focus:outline-none"
+                className="text-lg font-bold w-full px-4 pt-2 pb-0 border-none rounded-t focus:outline-none"
                 placeholder="Name"
                 autoFocus
               />
@@ -37,14 +43,75 @@ function NewEventForm({ onClose }) {
               />
             </div>
 
-            <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Date
-              </label>
-              <input
-                type="date"
-                className="w-full px-4 py-2 border rounded shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
+            <div className="mb-4 border border-gray-300 rounded shadow-sm focus-within:ring-2 focus-within:ring-blue-500">
+              {/* Start Date */}
+              <div className="px-4 py-2 border-b border-gray-300 flex items-center">
+                <label
+                  htmlFor="startDate"
+                  className="text-sm font-medium text-gray-700 whitespace-nowrap"
+                >
+                  Start:
+                </label>
+
+                <DatePicker
+                  id="startDate"
+                  selected={startDate}
+                  onChange={(date) => setStartDate(date)}
+                  selectsStart
+                  startDate={startDate}
+                  endDate={endDate}
+                  showTimeSelect={!isAllDay}
+                  dateFormat={
+                    isAllDay ? "MMMM do yyyy" : "MMMM do yyyy 'at' h:mm a"
+                  }
+                  placeholderText=""
+                  wrapperClassName="w-full"
+                  className="w-full px-2 py-1 border-none focus:outline-none"
+                />
+              </div>
+
+              {/* End Date */}
+              <div className="px-4 py-2 border-b border-gray-300 flex items-center">
+                <label
+                  htmlFor="endDate"
+                  className="text-sm font-medium text-gray-700 whitespace-nowrap"
+                >
+                  End:
+                </label>
+                <DatePicker
+                  id="endDate"
+                  selected={endDate}
+                  onChange={(date) => setEndDate(date)}
+                  selectsEnd
+                  startDate={startDate}
+                  endDate={endDate}
+                  minDate={startDate}
+                  showTimeSelect={!isAllDay}
+                  dateFormat={
+                    isAllDay ? "MMMM do yyyy" : "MMMM do yyyy 'at' h:mm a"
+                  }
+                  placeholderText=""
+                  wrapperClassName="w-full"
+                  className="w-full px-2 py-1 border-none focus:outline-none"
+                />
+              </div>
+
+              {/* All Day Checkbox */}
+              <div className="px-4 py-2 flex items-center space-x-2">
+                <input
+                  type="checkbox"
+                  id="allDay"
+                  checked={isAllDay}
+                  onChange={(e) => setIsAllDay(e.target.checked)}
+                  className="w-4 h-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500"
+                />
+                <label
+                  htmlFor="allDay"
+                  className="text-sm font-medium text-gray-700"
+                >
+                  All Day
+                </label>
+              </div>
             </div>
 
             <div className="mb-4">
